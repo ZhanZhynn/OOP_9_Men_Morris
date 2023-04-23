@@ -1,6 +1,8 @@
-package Player;
+package game.Player;
 
-import Action.Action;
+import game.Action.Action;
+import game.Colour;
+
 
 abstract class Player {
 
@@ -8,14 +10,13 @@ abstract class Player {
     private Action action;
     private int totalPiecesOnBoard;
     private int totalPiecesToPlace;
-    private String tokenColour;
+    private Colour colour;
 
-
-    public Player() {
-    }
-
-    public Player(String tokenColour) {
-        this.tokenColour = tokenColour;
+    public Player(Colour colour) {
+        this.colour = colour;
+        totalPiecesToPlace = 9;
+        totalPiecesOnBoard = 0;
+        isTurn = false;
     }
 
     public boolean isTurn() {
@@ -50,16 +51,28 @@ abstract class Player {
         this.totalPiecesToPlace = totalPiecesToPlace;
     }
 
-    public String getTokenColour() {
-        return tokenColour;
+    public Colour getColour() {
+        return colour;
     }
 
-    public void setTokenColour(String tokenColour) {
-        this.tokenColour = tokenColour;
+    public void setColour(Colour colour) {
+        this.colour = colour;
     }
 
-    private void playerInit(){
-        totalPiecesOnBoard = 0;
-        totalPiecesToPlace = 9;
+    public void removeToken(){
+        totalPiecesOnBoard--;
+    }
+
+    public void tilePlaced(){
+        totalPiecesToPlace--;
+        totalPiecesOnBoard++;
+    }
+
+    public void activateTurn(){
+        isTurn = true;
+    }
+
+    public void deactivateTurn(){
+        isTurn = false;
     }
 }

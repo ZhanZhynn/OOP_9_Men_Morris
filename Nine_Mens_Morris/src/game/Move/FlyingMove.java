@@ -1,4 +1,4 @@
-package Move;
+package game.Move;
 
 public class FlyingMove {
 }

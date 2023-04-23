@@ -1,4 +1,4 @@
-package Action;
+package game.Action;
 
 public class Action {
 
