@@ -1,6 +1,8 @@
 package game;
 
 import game.Player.HumanPlayer;
+import game.Utils.Colour;
+import game.Utils.GamePhase;
 
 public class Game {
 
