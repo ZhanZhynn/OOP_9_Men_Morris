@@ -1,6 +1,6 @@
 package game.Player;
 
-import game.Colour;
+import game.Utils.Colour;
 
 public class HumanPlayer extends Player{
 
