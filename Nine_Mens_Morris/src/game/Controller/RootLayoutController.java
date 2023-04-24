@@ -1,29 +1,27 @@
 package game.Controller;
 
-import game.GameManager;
-import game.Main;
-import game.Position;
 import game.Board;
-import game.Utils.Colour;
+import game.GameManager;
+import game.Position;
 import game.Utils.GamePhase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-
+import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * @author Hee Zhan Zhynn
  */
 
 public class RootLayoutController {
-
 
 
     private Stage stage;
@@ -42,8 +40,7 @@ public class RootLayoutController {
     /**
      * Returns the location of the {@code ImageView} passed to the method.
      *
-     * @param iv
-     *            {@code ImageView} to find out the location of
+     * @param iv {@code ImageView} to find out the location of
      * @return location in the corresponding {@code GridPane}
      */
     private Position getLocationOfTile(ImageView iv) {
@@ -74,8 +71,7 @@ public class RootLayoutController {
     /**
      * Initializes the drag functionality on a given {@code GridPane} parameter.
      *
-     * @param grid
-     *            to be allowed to drag from
+     * @param grid to be allowed to drag from
      */
     private void initDrag(GridPane grid) {
         for (Node i : grid.getChildren()) {
@@ -87,6 +83,10 @@ public class RootLayoutController {
                 }
                 if (gameManager.getGamePhase() != GamePhase.PLACEMENT && !grid.getId().equals(boardGrid.getId())) {
                     return;
+                }
+                //In movement phase, set the initial location of selected token
+                if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
+                    gameManager.setSelectedTokenPosition(getLocationOfTile(iv));
                 }
 
                 Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
@@ -112,8 +112,7 @@ public class RootLayoutController {
     /**
      * Initializes the drop functionality on a given {@code GridPane} parameter.
      *
-     * @param grid
-     *            to be allowed to drop on
+     * @param grid to be allowed to drop on
      */
     private void initDrop(GridPane grid) {
         for (Node i : grid.getChildren()) {
@@ -131,10 +130,16 @@ public class RootLayoutController {
                 Dragboard db = event.getDragboard();
                 if (db.hasImage() && db.hasString()) {
                     if (iv.getId() == null) {
-                        iv.setImage(db.getImage());
-                        iv.setId(db.getString());
-                        event.setDropCompleted(true);
-
+                        Position placePosition = getLocationOfTile(iv);
+                        if (gameManager.validateTokenPlacement(placePosition)) {
+                            iv.setImage(db.getImage());
+                            iv.setId(db.getString());
+                            board.setTokenPlacedPosition(placePosition);
+                            event.setDropCompleted(true);
+                        }
+                        else{
+                            System.out.print("CANNOT PLACE");
+                        }
                     }
                 }
                 event.consume();
@@ -142,16 +147,29 @@ public class RootLayoutController {
         }
     }
 
+
+    private void initGameManagerPropertyListeners() {
+        board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+            if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
+                gameManager.placeToken(newPosition);
+            }
+            else if (gameManager.getGamePhase()==GamePhase.MOVEMENT){
+                gameManager.moveToken(newPosition);
+            }
+        });
+    }
+
     /**
      * Initializes the controller class. This method is automatically called after the fxml file has been loaded.
      */
     @FXML
     private void initialize() {
-        board = Board.getInstance();
-
+        gameManager = new GameManager();
+        board = gameManager.getBoard();
         for (Node i : boardGrid.getChildren()) {
             boardGridChildren.add((ImageView) i);
         }
+        initGameManagerPropertyListeners();
 
         initDrag(leftTileGrid);
         initDrag(rightTileGrid);
@@ -159,18 +177,6 @@ public class RootLayoutController {
         initDrop(boardGrid);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

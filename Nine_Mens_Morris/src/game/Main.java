@@ -50,9 +50,9 @@ public class Main extends Application {
             VBox root = loader.load();
             controller = loader.getController();
 
-            gameManager = new GameManager();
+
             controller.setStage(primaryStage);
-            controller.setGameManager(gameManager);
+//            controller.setGameManager(gameManager);
 
             Platform.setImplicitExit(false);
 

@@ -11,6 +11,11 @@ public class Token {
         this.colour = colour;
     }
 
+    public Token(Colour colour, Position position) {
+        this.colour = colour;
+        this.position = position;
+    }
+
     public Colour getColour() {
         return colour;
     }

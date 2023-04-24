@@ -1,6 +1,10 @@
 package game;
 
 
+import game.Utils.Colour;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,22 +13,64 @@ public class Board {
     private Map<Position, Integer> boardPositions;
     private Map<Position, Token> occupiedPosition;
 
-    private int totalPlayer1Pieces;
-    private int totalPlayer2Pieces;
+    private ObjectProperty<Position> tokenPlacedPosition;
 
-    private static Board instance = new Board();
+    private Position oldPosition;
+    private Position newPosition;
 
 
     public Board() {
         boardPositions = new Position().getAllPositions();
         occupiedPosition = new HashMap<>();
-    }
-    public static Board getInstance() {
-        return instance;
+        tokenPlacedPosition = new SimpleObjectProperty<>();
     }
 
-    public boolean validateTokenPlacement(Position currentPosition, Position newPosition) {
-        Integer p1 = boardPositions.get(currentPosition);
+    public Position getOldPosition() {
+        return oldPosition;
+    }
+
+    public void setOldPosition(Position oldPosition) {
+        this.oldPosition = oldPosition;
+    }
+
+    public Position getNewPosition() {
+        return newPosition;
+    }
+
+    public void setNewPosition(Position newPosition) {
+        this.newPosition = newPosition;
+    }
+
+    public Map<Position, Integer> getBoardPositions() {
+        return boardPositions;
+    }
+
+    public void setBoardPositions(Map<Position, Integer> boardPositions) {
+        this.boardPositions = boardPositions;
+    }
+
+    public Map<Position, Token> getOccupiedPosition() {
+        return occupiedPosition;
+    }
+
+    public void setOccupiedPosition(Map<Position, Token> occupiedPosition) {
+        this.occupiedPosition = occupiedPosition;
+    }
+
+    public Position getTokenPlacedPosition() {
+        return tokenPlacedPosition.get();
+    }
+
+    public ObjectProperty<Position> tokenPlacedPositionProperty() {
+        return tokenPlacedPosition;
+    }
+
+    public void setTokenPlacedPosition(Position tokenPlacedPosition) {
+        this.tokenPlacedPosition.set(tokenPlacedPosition);
+    }
+
+    public boolean validateTokenPlacement( Position newPosition) {
+        Integer p1 = boardPositions.get(oldPosition);
         Integer p2 = boardPositions.get(newPosition);
 
         if (p1 % 8 == 0) {
@@ -57,16 +103,24 @@ public class Board {
         return false;
     }
 
-    public void placeToken(Position position, Token token) {
+    //In PLACEMENT phase, new tokens are created
+    public void placeNewToken(Position position, Colour colour) {
         if (!occupiedPosition.containsKey(position)) {
-            occupiedPosition.put(position, token);
+            occupiedPosition.put(position, new Token(colour, position));
+            System.out.print(occupiedPosition.toString() + "\n");
         } else{
-            System.out.printf("POSITION ALREADY HAVE TOKEN");
+            System.out.print("POSITION ALREADY HAVE TOKEN");
         }
     }
 
-    public void movedToken(Position oldPosition, Position newPosition, Token token){
+    public void moveToken(Position newPosition){
+        //get the token
+        Token token = occupiedPosition.get(oldPosition);
+        //remove old position from list
         occupiedPosition.remove(oldPosition);
-        placeToken(newPosition,token);
+
+        //update token position and place back into list
+        token.setPosition(newPosition);
+        occupiedPosition.put(newPosition,token);
     }
 }
