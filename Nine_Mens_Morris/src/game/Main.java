@@ -21,7 +21,7 @@ import game.Controller.RootLayoutController;
 
 public class Main extends Application {
 
-    public static final String GAME_NAME = "Merels";
+    public static final String GAME_NAME = "Nine Men Morris";
     public static final String GAME_VERSION = "1.0";
     public static final String FULL_NAME = GAME_NAME + " " + GAME_VERSION;
 
