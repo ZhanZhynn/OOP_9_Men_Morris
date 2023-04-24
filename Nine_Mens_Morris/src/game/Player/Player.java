@@ -1,7 +1,7 @@
 package game.Player;
 
 import game.Action.Action;
-import game.Colour;
+import game.Utils.Colour;
 
 
 abstract class Player {
