@@ -3,19 +3,18 @@ package game.Controller;
 import game.Board;
 import game.GameManager;
 import game.Position;
+import game.Utils.Colour;
 import game.Utils.GamePhase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * @author Hee Zhan Zhynn
@@ -89,12 +88,15 @@ public class RootLayoutController {
                     gameManager.setSelectedTokenPosition(getLocationOfTile(iv));
                 }
 
-                Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
-                ClipboardContent content = new ClipboardContent();
-                content.putImage(iv.getImage());
-                content.putString(iv.getId());
-                db.setContent(content);
-                event.consume();
+                if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("blk") ||
+                        gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("wht")) {
+                    Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    content.putImage(iv.getImage());
+                    content.putString(iv.getId());
+                    db.setContent(content);
+                    event.consume();
+                }
             });
 
             iv.setOnDragDone(event -> { // DragEvent
@@ -135,9 +137,9 @@ public class RootLayoutController {
                             iv.setImage(db.getImage());
                             iv.setId(db.getString());
                             board.setTokenPlacedPosition(placePosition);
+                            gameManager.changePlayerTurn();
                             event.setDropCompleted(true);
-                        }
-                        else{
+                        } else {
                             System.out.print("CANNOT PLACE");
                         }
                     }
@@ -149,11 +151,10 @@ public class RootLayoutController {
 
 
     private void initGameManagerPropertyListeners() {
-        board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+       gameManager.getBoard().tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
                 gameManager.placeToken(newPosition);
-            }
-            else if (gameManager.getGamePhase()==GamePhase.MOVEMENT){
+            } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
                 gameManager.moveToken(newPosition);
             }
         });

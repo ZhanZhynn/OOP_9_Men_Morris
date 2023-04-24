@@ -4,6 +4,8 @@ import game.Player.HumanPlayer;
 import game.Utils.Colour;
 import game.Utils.GamePhase;
 
+import java.awt.*;
+
 public class GameManager {
 
     private final int MAXTOKEN = 18;
@@ -28,6 +30,22 @@ public class GameManager {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public HumanPlayer getPlayer1() {
+        return player1;
+    }
+
+    public void setPlayer1(HumanPlayer player1) {
+        this.player1 = player1;
+    }
+
+    public HumanPlayer getPlayer2() {
+        return player2;
+    }
+
+    public void setPlayer2(HumanPlayer player2) {
+        this.player2 = player2;
     }
 
     public void startGame() {
@@ -60,9 +78,12 @@ public class GameManager {
             player1.activateTurn();
         }
     }
+    public Colour colorOnTurn (){
+        return player1.isTurn() ? player1.getColour() : player2.getColour();
+    }
 
     public void placeToken(Position position) {
-        Colour colour = player1.isTurn() ? player1.getColour() : player2.getColour();
+        Colour colour = colorOnTurn();
         board.placeNewToken(position, colour);
         totalTokenPlaced++;
 
