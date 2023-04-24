@@ -1,5 +1,7 @@
 package game;
 
+import game.Utils.Colour;
+
 public class Token {
 
     private Colour colour;
