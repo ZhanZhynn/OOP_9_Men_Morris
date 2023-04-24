@@ -12,10 +12,15 @@ public class Board {
     private int totalPlayer1Pieces;
     private int totalPlayer2Pieces;
 
+    private static Board instance = new Board();
+
 
     public Board() {
         boardPositions = new Position().getAllPositions();
         occupiedPosition = new HashMap<>();
+    }
+    public static Board getInstance() {
+        return instance;
     }
 
     public boolean validateTokenPlacement(Position currentPosition, Position newPosition) {
