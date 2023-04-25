@@ -6,6 +6,14 @@ import game.Utils.GamePhase;
 
 import java.awt.*;
 
+/**
+ * @author Priyesh
+ *
+ * This class is used to manage the game.
+ * It also contains the methods to change the game phase and the player turn.
+ *
+ */
+
 public class GameManager {
 
     private final int MAXTOKEN = 18;
@@ -61,14 +69,24 @@ public class GameManager {
         return gamePhase;
     }
 
+    /**
+     * Getter to get token numbers of tokens on the board.
+     */
     public int getTotalTokenPlaced() {
         return totalTokenPlaced;
     }
 
+    /**
+     * Setter to set token numbers of tokens on the board.
+     */
     public void setTotalTokenPlaced(int totalTokenPlaced) {
         this.totalTokenPlaced = totalTokenPlaced;
     }
 
+
+    /**
+     * This method is used to change the game phase.
+     */
     public void changePlayerTurn() {
         if (player1.isTurn()) {
             player1.deactivateTurn();
@@ -78,10 +96,19 @@ public class GameManager {
             player1.activateTurn();
         }
     }
+
+    /**
+     * This method is used to get the colour of the player whose turn it is.
+     */
     public Colour colorOnTurn (){
         return player1.isTurn() ? player1.getColour() : player2.getColour();
     }
 
+    /**
+     * This method is used to place a token on the board.
+     *
+     * @param position the position to place the token.
+     */
     public void placeToken(Position position) {
         Colour colour = colorOnTurn();
         board.placeNewToken(position, colour);
@@ -92,14 +119,31 @@ public class GameManager {
         }
     }
 
+    /**
+     * This method is used to move a token on the board.
+     *
+     * @param position the position to move the token to.
+     */
     public void moveToken(Position position){
         board.moveToken(position);
     }
 
+    /**
+     * This method is used to set the position of the selected token.
+     *
+     * @param oldPosition the current position of the selected token.
+     */
     public void setSelectedTokenPosition(Position oldPosition) {
         board.setOldPosition(oldPosition);
     }
 
+    /**
+     * This method is validate the placement of the token using the logic in {@code Board}
+     *
+     * @param newPosition the position to be validated
+     * @return true if the token can be placed at the position, false otherwise.
+     *
+     */
     public boolean validateTokenPlacement(Position newPosition) {
         if (gamePhase == GamePhase.MOVEMENT) {
             return board.validateTokenPlacement(newPosition);

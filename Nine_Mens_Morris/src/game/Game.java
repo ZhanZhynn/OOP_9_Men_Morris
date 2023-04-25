@@ -4,6 +4,15 @@ import game.Player.HumanPlayer;
 import game.Utils.Colour;
 import game.Utils.GamePhase;
 
+/**
+ * @author Priyesh
+ *
+ * This class is used to represent the game.
+ *
+ * It contains the board, the players and the game phase.
+ *
+ */
+
 public class Game {
 
     private HumanPlayer player1;

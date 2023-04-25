@@ -2,6 +2,13 @@ package game;
 
 import game.Utils.Colour;
 
+/**
+ * @author Priyesh
+ *
+ * This class is used to represent the token.
+ *
+ */
+
 public class Token {
 
     private Colour colour;

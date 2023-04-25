@@ -18,6 +18,10 @@ import javafx.stage.Stage;
 
 /**
  * @author Hee Zhan Zhynn
+ *
+ *        This class is the controller for the root layout. It handles the drag and drop functionality of the game.
+ *
+ *        The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
  */
 
 public class RootLayoutController {
@@ -37,12 +41,12 @@ public class RootLayoutController {
     private GridPane rightTileGrid;
 
     /**
-     * Returns the location of the {@code ImageView} passed to the method.
+     * Returns the Position of the image view in the corresponding GridPane.
      *
-     * @param iv {@code ImageView} to find out the location of
-     * @return location in the corresponding {@code GridPane}
+     * @param iv image view to be checked
+     * @return Position of the image view
      */
-    private Position getLocationOfTile(ImageView iv) {
+    private Position getTilePosition(ImageView iv) {
         Integer column = GridPane.getColumnIndex(iv);
         Integer row = GridPane.getRowIndex(iv);
         return new Position(column == null ? 0 : column, row == null ? 0 : row);
@@ -58,7 +62,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Sets the {@code GameManager} object in which the game logic is placed.
+     * Sets the game manager of the application.
      *
      * @param gameManager
      */
@@ -83,9 +87,9 @@ public class RootLayoutController {
                 if (gameManager.getGamePhase() != GamePhase.PLACEMENT && !grid.getId().equals(boardGrid.getId())) {
                     return;
                 }
-                //In movement phase, set the initial location of selected token
+                //In movement phase, set the initial Position of selected token
                 if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
-                    gameManager.setSelectedTokenPosition(getLocationOfTile(iv));
+                    gameManager.setSelectedTokenPosition(getTilePosition(iv));
                 }
 
                 if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("blk") ||
@@ -114,7 +118,7 @@ public class RootLayoutController {
     /**
      * Initializes the drop functionality on a given {@code GridPane} parameter.
      *
-     * @param grid to be allowed to drop on
+     * @param grid to be allowed to drop to
      */
     private void initDrop(GridPane grid) {
         for (Node i : grid.getChildren()) {
@@ -132,7 +136,7 @@ public class RootLayoutController {
                 Dragboard db = event.getDragboard();
                 if (db.hasImage() && db.hasString()) {
                     if (iv.getId() == null) {
-                        Position placePosition = getLocationOfTile(iv);
+                        Position placePosition = getTilePosition(iv);
                         if (gameManager.validateTokenPlacement(placePosition)) {
                             iv.setImage(db.getImage());
                             iv.setId(db.getString());
@@ -149,7 +153,10 @@ public class RootLayoutController {
         }
     }
 
-
+    /**
+     * Initializes the listeners for the properties of the game manager.
+     *
+     */
     private void initGameManagerPropertyListeners() {
        gameManager.getBoard().tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
@@ -161,7 +168,8 @@ public class RootLayoutController {
     }
 
     /**
-     * Initializes the controller class. This method is automatically called after the fxml file has been loaded.
+     * Initializes the controller class. This method is automatically called.
+     * It is called after the fxml file has been loaded.
      */
     @FXML
     private void initialize() {
@@ -172,12 +180,10 @@ public class RootLayoutController {
         }
         initGameManagerPropertyListeners();
 
-        initDrag(leftTileGrid);
+        initDrag(leftTileGrid); //id of grid pane in fxml file
         initDrag(rightTileGrid);
         initDrag(boardGrid);
         initDrop(boardGrid);
-
     }
-
 
 }

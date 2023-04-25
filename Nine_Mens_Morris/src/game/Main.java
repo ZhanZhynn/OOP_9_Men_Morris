@@ -18,6 +18,13 @@ import java.io.IOException;
 
 import game.Controller.RootLayoutController;
 
+/**
+ * @author Hee Zhan Zhynn
+ *
+ * This class is used to start the game and initialise the game UI.
+ *
+ */
+
 
 public class Main extends Application {
 

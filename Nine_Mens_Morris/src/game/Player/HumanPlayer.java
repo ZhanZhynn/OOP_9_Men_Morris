@@ -2,6 +2,13 @@ package game.Player;
 
 import game.Utils.Colour;
 
+/**
+ * @author Priyesh
+ *
+ * This class is used to represent the human player in the game.
+ *
+ */
+
 public class HumanPlayer extends Player{
 
     private String playerName;

@@ -2,6 +2,17 @@ package game;
 
 import java.util.*;
 
+/**
+ * @author Priyesh
+ *
+ * This class is used to represent the position of the board.
+ *
+ * It contains the x and y coordinates of the position.
+ *
+ * It contains methods related to the position of the board.
+ *
+ */
+
 public class Position {
 
     private int x;
@@ -22,6 +33,7 @@ public class Position {
 
     public Position() {
     }
+
 
     public int getX() {
         return x;
@@ -60,6 +72,11 @@ public class Position {
         return Objects.hash(x, y);
     }
 
+    /**
+     * This method is used to get all the valid positions of the board according to the column and row of grid pane.
+     *
+     * @return allPositions
+     */
     public Map<Position, Integer> getAllPositions(){
         Map<Position, Integer> allPositions = new HashMap<>();
 
