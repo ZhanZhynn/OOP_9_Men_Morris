@@ -92,8 +92,8 @@ public class RootLayoutController {
                     gameManager.setSelectedTokenPosition(getTilePosition(iv));
                 }
 
-                if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("blk") ||
-                        gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("wht")) {
+                if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("wht") ||
+                        gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("blk")) {
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     content.putImage(iv.getImage());
