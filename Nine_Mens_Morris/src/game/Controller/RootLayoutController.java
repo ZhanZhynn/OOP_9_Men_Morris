@@ -34,11 +34,11 @@ public class RootLayoutController {
     private ObservableList<ImageView> boardGridChildren = FXCollections.observableArrayList();
 
     @FXML
-    private GridPane boardGrid;
+    private GridPane gameBoardGrid;     // game board grid is the main game board to place token on
     @FXML
-    private GridPane leftTileGrid;
+    private GridPane leftPocketGrid;    // pocket grid is initial token placement before game starts
     @FXML
-    private GridPane rightTileGrid;
+    private GridPane rightPocketGrid;
 
     /**
      * Returns the Position of the image view in the corresponding GridPane.
@@ -76,7 +76,7 @@ public class RootLayoutController {
      *
      * @param grid to be allowed to drag from
      */
-    private void initDrag(GridPane grid) {
+    private void initTokenDrag(GridPane grid) {
         for (Node i : grid.getChildren()) {
             ImageView iv = (ImageView) i;
 
@@ -84,7 +84,7 @@ public class RootLayoutController {
                 if (iv.getImage() == null) {
                     return;
                 }
-                if (gameManager.getGamePhase() != GamePhase.PLACEMENT && !grid.getId().equals(boardGrid.getId())) {
+                if (gameManager.getGamePhase() != GamePhase.PLACEMENT && !grid.getId().equals(gameBoardGrid.getId())) {
                     return;
                 }
                 //In movement phase, set the initial Position of selected token
@@ -106,7 +106,7 @@ public class RootLayoutController {
             iv.setOnDragDone(event -> { // DragEvent
                 if (event.getTransferMode() == TransferMode.MOVE) {
                     iv.setImage(null);
-                    if (grid.getId().equals(boardGrid.getId())) {
+                    if (grid.getId().equals(gameBoardGrid.getId())) {
                         iv.setId(null);
                     }
                 }
@@ -120,7 +120,7 @@ public class RootLayoutController {
      *
      * @param grid to be allowed to drop to
      */
-    private void initDrop(GridPane grid) {
+    private void initTokenDrop(GridPane grid) {
         for (Node i : grid.getChildren()) {
             ImageView iv = (ImageView) i;
 
@@ -175,15 +175,15 @@ public class RootLayoutController {
     private void initialize() {
         gameManager = new GameManager();
         board = gameManager.getBoard();
-        for (Node i : boardGrid.getChildren()) {
+        for (Node i : gameBoardGrid.getChildren()) {
             boardGridChildren.add((ImageView) i);
         }
         initGameManagerPropertyListeners();
 
-        initDrag(leftTileGrid); //id of grid pane in fxml file
-        initDrag(rightTileGrid);
-        initDrag(boardGrid);
-        initDrop(boardGrid);
+        initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
+        initTokenDrag(rightPocketGrid);
+        initTokenDrag(gameBoardGrid);
+        initTokenDrop(gameBoardGrid);
     }
 
 }

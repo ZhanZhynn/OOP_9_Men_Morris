@@ -138,7 +138,7 @@ public class GameManager {
     }
 
     /**
-     * This method is validate the placement of the token using the logic in {@code Board}
+     * This method is to validate the placement of the token using the logic in {@code Board}
      *
      * @param newPosition the position to be validated
      * @return true if the token can be placed at the position, false otherwise.
