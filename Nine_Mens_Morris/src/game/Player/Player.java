@@ -1,13 +1,11 @@
 package game.Player;
 
-import game.Action.Action;
 import game.Utils.Colour;
 
 
 abstract class Player {
 
     private boolean isTurn;
-    private Action action;
     private int totalPiecesOnBoard;
     private int totalPiecesToPlace;
     private Colour colour;
@@ -25,14 +23,6 @@ abstract class Player {
 
     public void setTurn(boolean turn) {
         isTurn = turn;
-    }
-
-    public Action getAction() {
-        return action;
-    }
-
-    public void setAction(Action action) {
-        this.action = action;
     }
 
     public int getTotalPiecesOnBoard() {
