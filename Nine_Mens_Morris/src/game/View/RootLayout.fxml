@@ -131,9 +131,9 @@
     </HBox>
       <HBox layoutX="10.0" layoutY="520.0" prefHeight="27.0" prefWidth="500.0">
          <children>
-             <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="47.0" text="Player 1" />
+             <Label prefHeight="17.0" prefWidth="238.0" text="Player 1" />
              <Separator orientation="VERTICAL" prefHeight="24.0" prefWidth="24.0" />
-             <Label prefHeight="17.0" prefWidth="238.0" text="Player 2" />
+             <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="47.0" text="Player 2" />
          </children>
       </HBox>
 </children>
