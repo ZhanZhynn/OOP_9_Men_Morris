@@ -9,7 +9,10 @@ Program is developed using Java and JavaFX.
 2. Set up JavaFX in Intellij. You may refer this [video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiAxeq42Mn-AhXk1TgGHWZkCUAQwqsBegQICBAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIvsvjUq38Jc&usg=AOvVaw0gUcKQI4-TAIw965WQCYux) or JavaFX's [website](https://openjfx.io/openjfx-docs/) if necessary.
 3. Set up VM configuration for JavaFX (shown in last part of video) and run from there.
 
+*Attempt was made to create a jar file for the game, but it was unsuccessful. Hence, the game can only be run from Intellij.*
+
 If the game runs successfully, you will see the interface below:
+
 
 <img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
