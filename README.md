@@ -31,8 +31,12 @@ Inside the Sprint 2 folder we have:
 1. 9MM_UML.pdf - our uml diagram for Sprint 2
 2. FIT3077_Sprint_2_Design_Rationale.pdf - our design rationale for Sprint 2
 
-To run our 9MM game, please follow the steps below:
+**To run our 9MM game, please follow the steps below:**
 1. Clone the GitLab repository
-2. Set up JavaFX in Intellij. You may reference this [video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiAxeq42Mn-AhXk1TgGHWZkCUAQwqsBegQICBAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIvsvjUq38Jc&usg=AOvVaw0gUcKQI4-TAIw965WQCYux) if necessary.
+2. Set up JavaFX in Intellij. You may reference this [video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiAxeq42Mn-AhXk1TgGHWZkCUAQwqsBegQICBAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIvsvjUq38Jc&usg=AOvVaw0gUcKQI4-TAIw965WQCYux) or JavaFX's [website](https://openjfx.io/openjfx-docs/) if necessary.
 3. Set up VM configuration for JavaFX and run from there.
+
+If the game runs successfully, you will see the interface below:
+
+<img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
