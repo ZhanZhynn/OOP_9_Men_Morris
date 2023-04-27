@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Nine_Mens_Morris:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Nine_Mens_Morris_jar</output-path>
+    <root id="archive" name="Nine_Mens_Morris.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/res/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="Nine_Mens_Morris" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$JavaFx19$/javafx.graphics.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
