@@ -4,11 +4,14 @@
 Program is developed using Java and JavaFX.
 
 ## How to run
-1. Download the project and open in IntelliJ.
-2. Download JavaFX and add it to the project structure (https://www.youtube.com/watch?v=IvsvjUq38Jc).
-3. Add JavaFX as VM in "Run Configurations".
-4. Run the project.
-5. Enjoy the game.
+**To run our 9MM game, please follow the steps below:**
+1. Clone the GitLab repository
+2. Set up JavaFX in Intellij. You may refer this [video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiAxeq42Mn-AhXk1TgGHWZkCUAQwqsBegQICBAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIvsvjUq38Jc&usg=AOvVaw0gUcKQI4-TAIw965WQCYux) or JavaFX's [website](https://openjfx.io/openjfx-docs/) if necessary.
+3. Set up VM configuration for JavaFX (shown in last part of video) and run from there.
+
+If the game runs successfully, you will see the interface below:
+
+<img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
 ## Dependencies
 - Java JDK 17.0.7
