@@ -2,8 +2,8 @@
 
 ## Documentation
 
-[Sprint 1](#Sprint 1) <br>
-[Sprint 2](#Sprint 2)
+[Sprint 1](##Sprint 1) <br>
+[Sprint 2](##Sprint 2)
 
 ## Sprint 1 
 
