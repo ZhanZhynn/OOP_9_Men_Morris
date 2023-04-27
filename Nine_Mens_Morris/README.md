@@ -18,3 +18,12 @@ If the game runs successfully, you will see the interface below:
 - JavaFX 20.0.1
 - JavaFX Scene Builder (optional)
 
+## Troubleshoot
+If you face the error as shown below, it is likely that you have not set up JavaFX path correctly. Kindly update your path according to 
+where you saved your JavaFX SDK.
+![troubleshoot.png](res%2Ftroubleshoot.png)
+
+This configuration can be found in the VM options of the Run/Debug Configurations.
+![troubleshoot1.png](res%2Ftroubleshoot1.png)
+
+
