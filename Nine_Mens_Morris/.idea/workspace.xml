@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32442f2b-4b6c-4ef9-b714-1408ccd2c24c" name="Changes" comment="Remove out cache" />
+    <list default="true" id="0d6c5ba4-bbb4-44ec-8a54-bba97aac303c" name="Changes" comment="Minor changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Action/Action.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Controller/RootLayoutController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Controller/RootLayoutController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/GameManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/GameManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Move/FlyingMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Move/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Move/RegularMove.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Player/AIPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Player/AIPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Player/HumanPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Player/HumanPlayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Utils/Colour.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Utils/Colour.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Utils/GamePhase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/Utils/GamePhase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/View/RootLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/View/RootLayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/View/application.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Nine_Mens_Morris/game/View/application.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Controller/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Controller/RootLayoutController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +55,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Hee's Desktop/Documents/Java Libraries/javafx-sdk-20.0.1/lib&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
@@ -45,7 +68,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="Nine_Mens_Morris" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;$JavaFX20$&quot; --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\prikk\Downloads\openjfx-17.0.7_windows-x64_bin-sdk\javafx-sdk-17.0.7\lib&quot; --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -54,7 +77,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="32442f2b-4b6c-4ef9-b714-1408ccd2c24c" name="Changes" comment="" />
+      <changelist id="0d6c5ba4-bbb4-44ec-8a54-bba97aac303c" name="Changes" comment="" />
       <created>1682056211379</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -214,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682307994792</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Minor changes">
+      <created>1682345367957</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1682345367957</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,6 +277,7 @@
     <MESSAGE value="Remove .idea cache" />
     <MESSAGE value="Fix game bug" />
     <MESSAGE value="Remove out cache" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove out cache" />
+    <MESSAGE value="Minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor changes" />
   </component>
 </project>

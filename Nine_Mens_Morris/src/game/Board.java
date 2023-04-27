@@ -25,7 +25,6 @@ public class Board {
     private ObjectProperty<Position> tokenPlacedPosition;
 
     private Position oldPosition;
-    private Position newPosition;
 
 
     /**
@@ -50,20 +49,6 @@ public class Board {
      */
     public void setOldPosition(Position oldPosition) {
         this.oldPosition = oldPosition;
-    }
-
-    /**
-     * Getter to get new position of the token
-     */
-    public Position getNewPosition() {
-        return newPosition;
-    }
-
-    /**
-     * Setter to set new position of the token
-     */
-    public void setNewPosition(Position newPosition) {
-        this.newPosition = newPosition;
     }
 
     /**

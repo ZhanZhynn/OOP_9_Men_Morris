@@ -94,6 +94,13 @@ public class RootLayoutController {
 
                 if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("wht") ||
                         gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("blk")) {
+
+                    //check if all token has been placed on board yet or not
+                    if (gameManager.getGamePhase() == GamePhase.PLACEMENT && grid.getId().equals(gameBoardGrid.getId())) {
+                        System.out.println("NEED TO PLACE ALL TOKEN FIRST");
+                        return;
+                    }
+
                     Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     content.putImage(iv.getImage());
@@ -158,7 +165,7 @@ public class RootLayoutController {
      *
      */
     private void initGameManagerPropertyListeners() {
-       gameManager.getBoard().tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+       board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
                 gameManager.placeToken(newPosition);
             } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
