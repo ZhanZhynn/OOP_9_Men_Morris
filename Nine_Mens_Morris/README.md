@@ -16,5 +16,5 @@ If the game runs successfully, you will see the interface below:
 ## Dependencies
 - Java JDK 17.0.7
 - JavaFX 20.0.1
-- JavaFX Scene Builder
+- JavaFX Scene Builder (optional)
 
