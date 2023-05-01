@@ -16,6 +16,10 @@ If the game runs successfully, you will see the interface below:
 
 <img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
+## Rules implemented so far
+1. All tokens must be placed before you can start moving.
+2. Tokens can only be moved to the immediate neighbour positions if unoccupied.
+
 ## Dependencies
 - Java JDK 17.0.7
 - JavaFX 20.0.1
