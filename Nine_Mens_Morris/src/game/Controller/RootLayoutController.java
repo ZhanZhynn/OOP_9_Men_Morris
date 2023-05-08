@@ -22,6 +22,11 @@ import javafx.stage.Stage;
  *        This class is the controller for the root layout. It handles the drag and drop functionality of the game.
  *
  *        The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
+ *
+ *        Reference:
+ *          https://www.javatpoint.com/javafx-convenience-methods
+ *          https://github.com/OmDharme/Chess---JavaFX
+ *          https://github.com/zann1x/MerelsFX*
  */
 
 public class RootLayoutController {
