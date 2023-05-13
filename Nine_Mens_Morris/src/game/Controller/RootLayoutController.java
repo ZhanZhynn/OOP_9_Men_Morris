@@ -44,7 +44,6 @@ public class RootLayoutController {
     private GridPane leftPocketGrid;    // pocket grid is initial token placement before game starts
     @FXML
     private GridPane rightPocketGrid;
-
     /**
      * Returns the Position of the image view in the corresponding GridPane.
      *
@@ -56,7 +55,6 @@ public class RootLayoutController {
         Integer row = GridPane.getRowIndex(iv);
         return new Position(column == null ? 0 : column, row == null ? 0 : row);
     }
-
     /**
      * Sets the stage of the application.
      *

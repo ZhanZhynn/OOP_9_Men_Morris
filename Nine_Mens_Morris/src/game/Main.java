@@ -3,6 +3,7 @@ package game;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -53,25 +54,30 @@ public class Main extends Application {
 //        stage.show();
 
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/RootLayout.fxml"));
-            VBox root = loader.load();
-            controller = loader.getController();
-
-
-            controller.setStage(primaryStage);
-//            controller.setGameManager(gameManager);
-
-            Platform.setImplicitExit(false);
-
-
+            Parent root = FXMLLoader.load(Main.class.getResource("view/MainMenu.fxml"));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Main.class.getResource("View/application.css").toExternalForm());
-
             primaryStage.setScene(scene);
-            primaryStage.setTitle(GAME_NAME);
-            primaryStage.getIcons().add(new Image("file:res/icon.png"));
-            primaryStage.setResizable(false);
             primaryStage.show();
+
+
+
+//            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/RootLayout.fxml"));
+//            VBox root = loader.load();
+//            controller = loader.getController();
+//            controller.setStage(primaryStage);
+//           controller.setGameManager(gameManager);
+//
+//            Platform.setImplicitExit(false);
+//
+//            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(Main.class.getResource("View/application.css").toExternalForm());
+//
+//            primaryStage.setScene(scene);
+//            primaryStage.setTitle(GAME_NAME);
+//            primaryStage.getIcons().add(new Image("file:res/icon.png"));
+//            primaryStage.setResizable(false);
+//            primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

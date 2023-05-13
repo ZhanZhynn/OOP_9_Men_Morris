@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="680.0" prefWidth="500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Controller.SceneController">
+   <children>
+      <Button layoutX="224.0" layoutY="328.0" mnemonicParsing="false" onAction="#switchToGameScene" text="Start">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="224.0" layoutY="400.0" mnemonicParsing="false" onAction="#closeGame" text="Exit">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
