@@ -164,7 +164,7 @@ public class Board {
         occupiedPosition.put(newPosition, token);
     }
 
-    public List<Position> getNeighbours (Position newPosition) {
+    public List<Position> getNeighbours(Position newPosition) {
         Integer num1 = boardPositions.get(newPosition);
         List<Position> neighbours = new ArrayList<>();
         Position p2;
@@ -182,17 +182,17 @@ public class Board {
             }
             //ring 2
             else if (num1 < 17) {
-               p2 = getKeyByValue(boardPositions, (num1 - 8));
-               p3 = getKeyByValue(boardPositions, (num1 + 8));
-               p4 = getKeyByValue(boardPositions, (num1 - 1));
-               p5 = getKeyByValue(boardPositions, (num1 + 1));
+                p2 = getKeyByValue(boardPositions, (num1 - 8));
+                p3 = getKeyByValue(boardPositions, (num1 + 8));
+                p4 = getKeyByValue(boardPositions, (num1 - 1));
+                p5 = getKeyByValue(boardPositions, (num1 + 1));
             }
             //ring 3
             else {
-               p2 = getKeyByValue(boardPositions, (num1 - 8));
-               p3 = getKeyByValue(boardPositions, (num1 - 16));
-               p4 = getKeyByValue(boardPositions, (num1 - 1));
-               p5 = getKeyByValue(boardPositions, (num1 + 1));
+                p2 = getKeyByValue(boardPositions, (num1 - 8));
+                p3 = getKeyByValue(boardPositions, (num1 - 16));
+                p4 = getKeyByValue(boardPositions, (num1 - 1));
+                p5 = getKeyByValue(boardPositions, (num1 + 1));
             }
 
             if (num1 % 8 == 0) {
@@ -203,13 +203,13 @@ public class Board {
                 p2 = getKeyByValue(boardPositions, (num1 + 7));
                 p3 = getKeyByValue(boardPositions, (num1 + 6));
             } else {
-               p2 = getKeyByValue(boardPositions, (num1 - 1));
-               p3 = getKeyByValue(boardPositions, (num1 - 2));
+                p2 = getKeyByValue(boardPositions, (num1 - 1));
+                p3 = getKeyByValue(boardPositions, (num1 - 2));
             }
             p4 = getKeyByValue(boardPositions, (num1 + 1));
             p5 = getKeyByValue(boardPositions, (num1 + 2));
 
-            if(num1 == 7 || num1 == 15 || num1 == 23) {
+            if (num1 == 7 || num1 == 15 || num1 == 23) {
                 p5 = getKeyByValue(boardPositions, (num1 - 6));
             }
         }
@@ -222,20 +222,28 @@ public class Board {
     }
 
 
-    public boolean checkIfMill(Position newPosition){
+    public boolean checkIfMill(Position newPosition) {
         List<Position> millNeighbours = new ArrayList<>();
         List<Position> neighbours = getNeighbours(newPosition);
         Token token = occupiedPosition.get(newPosition);
 
-        int count =0 ;
-        for (int i = 0; i<2;i++){
+        int count = 0;
+        for (int i = 0; i < 2; i++) {
             count = 0;
-            for (int j = i; j<i+2;j++){
-                if(occupiedPosition.get(neighbours.get(i+j)).getColour()==token.getColour()){
-                    count++;
-                    if(count==2){
-                        millNeighbours.add(neighbours.get(i+j-1));
-                        millNeighbours.add(neighbours.get(i+j));
+            for (int j = i; j < i + 2; j++) {
+                Token neighbourToken = occupiedPosition.get(neighbours.get(i + j));
+                System.out.println(neighbourToken);
+                if (neighbourToken != null) {
+                    if (occupiedPosition.get(neighbours.get(i + j)).getColour() == token.getColour()) {
+                        count++;
+                        if (count == 2) {
+                            millNeighbours.add(neighbours.get(i + j - 1));
+                            millNeighbours.add(neighbours.get(i + j));
+                            occupiedPosition.get(neighbours.get(i+j-1)).setPartOfMill(true);
+                            occupiedPosition.get(neighbours.get(i+j)).setPartOfMill(true);
+                            token.setPartOfMill(true);
+
+                        }
                     }
                 }
             }
@@ -246,11 +254,15 @@ public class Board {
 
     public boolean canBeRemoved(Position tokenPosition) {
         Token token = occupiedPosition.get(tokenPosition);
-        return token.isPartOfMill();
+        return !token.isPartOfMill();
     }
 
-    public void removeToken(Position tokenPosition) {
-        occupiedPosition.remove(tokenPosition);
+    public boolean removeToken(Position tokenPosition) {
+        if (canBeRemoved(tokenPosition)) {
+            occupiedPosition.remove(tokenPosition);
+            return true;
+        }
+        return false;
     }
 
 

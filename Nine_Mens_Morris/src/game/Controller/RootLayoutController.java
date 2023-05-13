@@ -12,21 +12,24 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 /**
  * @author Hee Zhan Zhynn
- *
- *        This class is the controller for the root layout. It handles the drag and drop functionality of the game.
- *
- *        The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
- *
- *        Reference:
- *          https://www.javatpoint.com/javafx-convenience-methods
- *          https://github.com/OmDharme/Chess---JavaFX
- *          https://github.com/zann1x/MerelsFX*
+ * <p>
+ * This class is the controller for the root layout. It handles the drag and drop functionality of the game.
+ * <p>
+ * The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
+ * <p>
+ * Reference:
+ * https://www.javatpoint.com/javafx-convenience-methods
+ * https://github.com/OmDharme/Chess---JavaFX
+ * https://github.com/zann1x/MerelsFX*
  */
 
 public class RootLayoutController {
@@ -92,6 +95,13 @@ public class RootLayoutController {
                 if (gameManager.getGamePhase() != GamePhase.PLACEMENT && !grid.getId().equals(gameBoardGrid.getId())) {
                     return;
                 }
+
+                //MILL CHECK
+                if (gameManager.isMill()) {
+                    System.out.println("THERE IS A MILL");
+                    return;
+                }
+
                 //In movement phase, set the initial Position of selected token
                 if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
                     gameManager.setSelectedTokenPosition(getTilePosition(iv));
@@ -154,6 +164,7 @@ public class RootLayoutController {
                             iv.setId(db.getString());
                             board.setTokenPlacedPosition(placePosition);
                             gameManager.changePlayerTurn();
+                            gameManager.updateMillStatus(placePosition);
                             event.setDropCompleted(true);
                         } else {
                             System.out.print("CANNOT PLACE");
@@ -165,12 +176,39 @@ public class RootLayoutController {
         }
     }
 
+
+    private void removeTileMill() {
+        for (ImageView iv : boardGridChildren) {
+            iv.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                if (gameManager.isMill()) {
+                    if (iv.getImage() != null && iv.getId() != null) {
+                        System.out.println(gameManager.colorOnTurn());
+                        if(iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.WHITE ||
+                                iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.BLACK){
+                            Position position = getTilePosition(iv);
+
+                            if (gameManager.removeToken(position)){
+                                iv.setImage(null);
+                                iv.setId(null);
+
+                                gameManager.setMill(false);
+                            }
+                            else{
+                                System.out.println("TOKEN CANNOT BE REMOVED");
+                            }
+                        }
+                    }
+                }
+                event.consume();
+            });
+        }
+    }
+
     /**
      * Initializes the listeners for the properties of the game manager.
-     *
      */
     private void initGameManagerPropertyListeners() {
-       board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+        board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
                 gameManager.placeToken(newPosition);
             } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
@@ -196,6 +234,8 @@ public class RootLayoutController {
         initTokenDrag(rightPocketGrid);
         initTokenDrag(gameBoardGrid);
         initTokenDrop(gameBoardGrid);
+
+        removeTileMill();
     }
 
 }

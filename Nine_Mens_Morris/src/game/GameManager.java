@@ -26,6 +26,8 @@ public class GameManager {
 
     private int totalTokenPlaced;
 
+    private boolean isMill;
+
     public GameManager() {
         board = new Board();
 
@@ -54,6 +56,15 @@ public class GameManager {
 
     public void setPlayer2(HumanPlayer player2) {
         this.player2 = player2;
+    }
+
+
+    public boolean isMill() {
+        return isMill;
+    }
+
+    public void setMill(boolean mill) {
+        isMill = mill;
     }
 
     public void startGame() {
@@ -150,4 +161,13 @@ public class GameManager {
         }
         return true;
     }
+
+    public void updateMillStatus(Position tokenPosition){
+        isMill = board.checkIfMill(tokenPosition);
+    }
+
+    public boolean removeToken(Position tokenPosition){
+        return board.removeToken(tokenPosition);
+    }
+
 }
