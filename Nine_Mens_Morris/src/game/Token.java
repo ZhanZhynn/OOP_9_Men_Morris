@@ -14,6 +14,8 @@ public class Token {
     private Colour colour;
     private Position position;
 
+    private boolean isPartOfMill;
+
     public Token(Colour colour) {
         this.colour = colour;
     }
@@ -37,5 +39,13 @@ public class Token {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public boolean isPartOfMill() {
+        return isPartOfMill;
+    }
+
+    public void setPartOfMill(boolean partOfMill) {
+        isPartOfMill = partOfMill;
     }
 }
