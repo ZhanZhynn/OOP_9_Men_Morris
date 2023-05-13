@@ -2,13 +2,18 @@ package game.Controller;
 
 import game.Board;
 import game.GameManager;
+import game.Main;
 import game.Position;
 import game.Utils.Colour;
 import game.Utils.GamePhase;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -17,19 +22,19 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.io.IOException;
 
 /**
  * @author Hee Zhan Zhynn
- * <p>
- * This class is the controller for the root layout. It handles the drag and drop functionality of the game.
- * <p>
- * The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
- * <p>
- * Reference:
- * https://www.javatpoint.com/javafx-convenience-methods
- * https://github.com/OmDharme/Chess---JavaFX
- * https://github.com/zann1x/MerelsFX*
+ *
+ *        This class is the controller for the root layout. It handles the drag and drop functionality of the game.
+ *
+ *        The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
+ *
+ *        Reference:
+ *          https://www.javatpoint.com/javafx-convenience-methods
+ *          https://github.com/OmDharme/Chess---JavaFX
+ *          https://github.com/zann1x/MerelsFX*
  */
 
 public class RootLayoutController {
@@ -47,6 +52,8 @@ public class RootLayoutController {
     private GridPane leftPocketGrid;    // pocket grid is initial token placement before game starts
     @FXML
     private GridPane rightPocketGrid;
+
+    private SceneController sceneController;    //to handle exit to main menu from game scene
 
     /**
      * Returns the Position of the image view in the corresponding GridPane.
@@ -206,9 +213,10 @@ public class RootLayoutController {
 
     /**
      * Initializes the listeners for the properties of the game manager.
+     *
      */
     private void initGameManagerPropertyListeners() {
-        board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+       board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
                 gameManager.placeToken(newPosition);
             } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
@@ -237,5 +245,90 @@ public class RootLayoutController {
 
         removeTileMill();
     }
+
+    /**
+     * Sets the scene to its default values as set at the very first start.
+     */
+    private void initWindow() {
+        stage.getScene().getStylesheets().clear();
+        stage.getScene().getStylesheets().add(Main.class.getResource("view/RootLayout.fxml").toExternalForm());
+
+//        if (board.isGameWon()) {
+//            boardGrid.getChildren().remove(24);
+//        }
+
+        for (ImageView iv : boardGridChildren) {
+            iv.setId(null);
+            iv.setImage(null);
+        }
+    }
+
+    /**
+     * Dialog box to show the action of new game/quit game button.
+     *
+     * @param title
+     * @param header
+     * @param content
+     * @param id
+     *
+     * id = 0 -> new game
+     * id = 1 -> quit game
+     * id = 2 -> exit to main menu
+     *
+     *
+     */
+
+    private void gameDialog(String title, String header, String content, int id) throws IOException {
+        ButtonType btnYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType btnNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.initOwner(stage);
+        alert.getButtonTypes().clear();
+        alert.getButtonTypes().addAll(btnYes, btnNo);
+        alert.showAndWait();
+        if (id == 0) {
+            if (alert.getResult() == btnYes) {
+                initWindow();
+//                board.setNewGame(true);
+            }
+        } else if (id == 1) {
+            if (alert.getResult() == btnYes) {
+                Platform.exit();
+            }
+        }
+        else if (id == 2) {
+            if (alert.getResult() == btnYes) {
+                sceneController = new SceneController();
+                sceneController.switchToMainMenuScene(this.stage);
+            }
+        }
+
+    }
+
+    /**
+     * Handles the action of the new game button.
+     */
+    public void handleNewGame() throws IOException {
+        gameDialog("New Game", "Are you sure you want to start a new game?", "All progress will be lost.", 0);
+    }
+
+
+    /**
+     * Handles the action of the new game button.
+     */
+    public void handleClose() throws IOException {
+        gameDialog("Quit Game", "Are you sure you want to quit?", "All progress will be lost.", 1);
+    }
+
+    /**
+     * Handles the action of exit to main menu
+     */
+    public void handleMenu() throws IOException {
+        gameDialog("Exit to Main Menu", "Are you sure you want to quit?", "All progress will be lost.", 2);
+    }
+
 
 }
