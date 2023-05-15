@@ -292,6 +292,7 @@ public class RootLayoutController {
         if (id == 0) {
             if (alert.getResult() == btnYes) {
                 initWindow();
+                initialize();//initalize a new game
 //                board.setNewGame(true);
             }
         } else if (id == 1) {
