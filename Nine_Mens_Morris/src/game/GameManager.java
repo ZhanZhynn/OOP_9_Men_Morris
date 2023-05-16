@@ -82,6 +82,10 @@ public class GameManager {
         return gamePhase;
     }
 
+    public void setGamePhase(GamePhase gamephase) {
+        this.gamePhase = gamePhase;
+    }
+
     /**
      * Getter to get token numbers of tokens on the board.
      */
@@ -110,6 +114,13 @@ public class GameManager {
         }
     }
 
+    public void gameOver(){
+        gamePhase = GamePhase.GAMEOVER;
+        player1.deactivateTurn();
+        player2.deactivateTurn();
+
+    }
+
     /**
      * This method is used to get the colour of the player whose turn it is.
      */
@@ -126,6 +137,15 @@ public class GameManager {
         Colour colour = colorOnTurn();
         board.placeNewToken(position, colour);
         totalTokenPlaced++;
+
+        // Update the number of tokens placed by the player
+        if (player1.isTurn()){
+            player1.tilePlaced();
+        } else {
+            player2.tilePlaced();
+        }
+
+        System.out.println("player 1:" + player1.getTotalPiecesOnBoard() + " player 2:" + player2.getTotalPiecesOnBoard());
 
         if(totalTokenPlaced == MAXTOKEN){
             gamePhase = GamePhase.MOVEMENT;
@@ -164,11 +184,34 @@ public class GameManager {
         return true;
     }
 
+    /**
+     * Check whether the game is won
+     *
+     * winning condition: opponent only has 2 tokens left
+     */
+    public int checkWin(){
+        if (player1.getTotalPiecesToPlace() == 0 && player1.getTotalPiecesOnBoard() < 3){
+            return 2;   // player 2 wins
+        } else if (player2.getTotalPiecesToPlace() == 0 && player2.getTotalPiecesOnBoard() < 3){
+            return 1;   // player 1 wins
+        }
+        return 0;
+    }
+
+
+
     public void updateMillStatus(Position tokenPosition){
         isMill = board.checkIfMill(tokenPosition);
     }
 
     public boolean removeToken(Position tokenPosition){
+        if (player1.isTurn()){
+            player1.removeToken();
+        } else {
+            player2.removeToken();
+        }
+        System.out.println("player 1:" + player1.getTotalPiecesOnBoard() + " player 2:" + player2.getTotalPiecesOnBoard());
+
         return board.removeToken(tokenPosition);
     }
 

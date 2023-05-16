@@ -203,10 +203,32 @@ public class RootLayoutController {
                             else{
                                 System.out.println("TOKEN CANNOT BE REMOVED");
                             }
+
                         }
                     }
                 }
+                //check win
+                if (gameManager.checkWin() > 0){
+                    System.out.println("WIN");
+                    gameManager.setGamePhase(GamePhase.GAMEOVER);
+
+                    if (gameManager.checkWin() == 1){
+                        System.out.println("Player 1 WIN");
+//                        gameManager.gameOver();
+                    }
+                    else{
+                        System.out.println("Player 2 WIN");
+
+//                        gameManager.gameOver();
+                    }
+                    try {
+                        handleGameover();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
                 event.consume();
+
             });
         }
     }
@@ -238,12 +260,13 @@ public class RootLayoutController {
         }
         initGameManagerPropertyListeners();
 
+
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
         initTokenDrag(rightPocketGrid);
         initTokenDrag(gameBoardGrid);
         initTokenDrop(gameBoardGrid);
-
         removeTileMill();
+
     }
 
     /**
@@ -253,8 +276,8 @@ public class RootLayoutController {
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(Main.class.getResource("view/RootLayout.fxml").toExternalForm());
 
-//        if (board.isGameWon()) {
-//            boardGrid.getChildren().remove(24);
+//        if (gameManager.getGamePhase() == GamePhase.GAMEOVER) {
+//            gameBoardGrid.getChildren().remove(24);
 //        }
 
         for (ImageView iv : boardGridChildren) {
@@ -295,6 +318,12 @@ public class RootLayoutController {
                 initialize();//initalize a new game
 //                board.setNewGame(true);
             }
+            else {
+                //exit to main menu
+                sceneController = new SceneController();
+                sceneController.switchToMainMenuScene(this.stage);
+            }
+
         } else if (id == 1) {
             if (alert.getResult() == btnYes) {
                 Platform.exit();
@@ -307,6 +336,9 @@ public class RootLayoutController {
             }
         }
 
+    }
+    public void handleGameover() throws IOException {
+        gameDialog("Game Over", "DO you wants to start a new game?", "All progress will be lost.", 0);
     }
 
     /**
