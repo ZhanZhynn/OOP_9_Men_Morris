@@ -140,6 +140,48 @@ public class Board {
         return false;
     }
 
+
+    public List<Position> getValidPositions(Position position) {
+        Integer p1 = boardPositions.get(position);
+        List<Position> validPositions = new ArrayList<>();
+
+        if (p1 < 8 && p1 % 2 == 0) {
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 8));
+        } else if (p1 == 8) {
+            validPositions.add(getKeyByValue(boardPositions, p1 - 7));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 8));
+        } else if (p1 < 16 && p1 % 2 == 0) {
+            validPositions.add(getKeyByValue(boardPositions, p1 - 8));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 8));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+        }else if (p1 == 16) {
+            validPositions.add(getKeyByValue(boardPositions, p1 - 7));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 8));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 8));
+        }else if (p1 < 24 && p1 % 2 == 0) {
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 8));
+        }else if (p1 == 24 ) {
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 7));
+            validPositions.add(getKeyByValue(boardPositions, p1 - 8));}
+        else if (p1 ==1 || p1 == 9 || p1 == 17) {
+            validPositions.add(getKeyByValue(boardPositions, p1 + 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 7));
+        }else{
+            validPositions.add(getKeyByValue(boardPositions, p1 - 1));
+            validPositions.add(getKeyByValue(boardPositions, p1 + 1));
+        }
+
+        return validPositions;
+    }
+
     /**
      * This method is used to place a new token on the board
      * In PLACEMENT phase, new tokens are created and placed on the board
@@ -304,16 +346,18 @@ public class Board {
     /**
      * reduces the is part of mill count for a set of tokens
      *
-     *
      * @param token the token which is part of mill that has been moved
      */
     public void reduceIsMillCount(Token token) {
         int[] ids = token.getMillId();
-        List<Token> tokens = millSets.get(ids[0]);
+        List<Token> tokens = new ArrayList<>();
+
+        if (millSets.get(ids[0]) != null) {
+            tokens.addAll(millSets.get(ids[0]));
+        }
         if (millSets.get(ids[1]) != null) {
             tokens.addAll(millSets.get(ids[1]));
         }
-
         for (Token t : tokens) {
             t.decreaseIsPartOfMillCount();
             t.resetMillId(ids[0]);

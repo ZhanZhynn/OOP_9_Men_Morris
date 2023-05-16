@@ -103,6 +103,12 @@ public class RootLayoutController {
                     return;
                 }
 
+                //draw check
+                if(!gameManager.anyMovePossible()){
+                    System.out.println("NO MORE MOVESSSSSSS!!!!!");
+                    return;
+                }
+
                 //MILL CHECK
                 if (gameManager.isMill()) {
                     System.out.println("THERE IS A MILL");

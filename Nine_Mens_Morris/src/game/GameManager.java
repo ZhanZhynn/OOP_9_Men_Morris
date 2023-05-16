@@ -4,7 +4,8 @@ import game.Player.HumanPlayer;
 import game.Utils.Colour;
 import game.Utils.GamePhase;
 
-import java.awt.*;
+import java.util.List;
+
 
 /**
  * @author Priyesh
@@ -102,7 +103,7 @@ public class GameManager {
 
 
     /**
-     * This method is used to change the game phase.
+     * This method is used to change player turn
      */
     public void changePlayerTurn() {
         if (player1.isTurn()) {
@@ -124,7 +125,7 @@ public class GameManager {
     /**
      * This method is used to get the colour of the player whose turn it is.
      */
-    public Colour colorOnTurn (){
+    public Colour colorOnTurn() {
         return player1.isTurn() ? player1.getColour() : player2.getColour();
     }
 
@@ -137,7 +138,6 @@ public class GameManager {
         Colour colour = colorOnTurn();
         board.placeNewToken(position, colour);
         totalTokenPlaced++;
-
         // Update the number of tokens placed by the player
         if (player1.isTurn()){
             player1.tilePlaced();
@@ -157,7 +157,7 @@ public class GameManager {
      *
      * @param position the position to move the token to.
      */
-    public void moveToken(Position position){
+    public void moveToken(Position position) {
         board.moveToken(position);
     }
 
@@ -213,6 +213,23 @@ public class GameManager {
         System.out.println("player 1:" + player1.getTotalPiecesOnBoard() + " player 2:" + player2.getTotalPiecesOnBoard());
 
         return board.removeToken(tokenPosition);
+    }
+
+
+    public boolean anyMovePossible() {
+
+        for (Position position : board.getOccupiedPosition().keySet()) {
+            if (colorOnTurn() == board.getOccupiedPosition().get(position).getColour()) {
+                List<Position> possibleMoves = board.getValidPositions(position);
+
+                for (Position possibleMove : possibleMoves) {
+                    if (board.getOccupiedPosition().get(possibleMove) == null) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }
