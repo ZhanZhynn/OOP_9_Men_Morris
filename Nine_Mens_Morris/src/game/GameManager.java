@@ -72,6 +72,8 @@ public class GameManager {
         player2 = new HumanPlayer("Player 2", Colour.WHITE);
 
         gamePhase = GamePhase.PLACEMENT;
+        player1.activateTurn();
+        player2.deactivateTurn();
 
     }
 

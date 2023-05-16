@@ -24,6 +24,10 @@ public class Board {
 
     private Position oldPosition;
 
+    private Map<Integer, List<Token>> millSets;
+
+    private int millId;
+
 
     /**
      * Constructor for the board class which initializes the board positions and the occupied positions.
@@ -32,6 +36,8 @@ public class Board {
         boardPositions = new Position().getAllPositions();
         occupiedPosition = new HashMap<>();
         tokenPlacedPosition = new SimpleObjectProperty<>();
+        millSets = new HashMap<>();
+        millId = 0;
     }
 
     /**
@@ -91,6 +97,10 @@ public class Board {
         this.tokenPlacedPosition.set(tokenPlacedPosition);
     }
 
+    public void increaseMillId() {
+        this.millId = this.millId + 1;
+    }
+
     /**
      * This method is used to validate whether a token can be placed at the new position from the current position
      *
@@ -141,7 +151,6 @@ public class Board {
     public void placeNewToken(Position position, Colour colour) {
         if (!occupiedPosition.containsKey(position)) {
             occupiedPosition.put(position, new Token(colour, position));
-            System.out.print(occupiedPosition.toString() + "\n");
         } else {
             System.out.print("POSITION ALREADY HAVE TOKEN");
         }
@@ -156,6 +165,11 @@ public class Board {
     public void moveToken(Position newPosition) {
         //get the token
         Token token = occupiedPosition.get(oldPosition);
+
+        if (token.getIsPartOfMillCount() > 0) {
+            reduceIsMillCount(token);
+        }
+
         //remove old position from list
         occupiedPosition.remove(oldPosition);
 
@@ -232,17 +246,27 @@ public class Board {
             count = 0;
             for (int j = i; j < i + 2; j++) {
                 Token neighbourToken = occupiedPosition.get(neighbours.get(i + j));
-                System.out.println(neighbourToken);
                 if (neighbourToken != null) {
                     if (occupiedPosition.get(neighbours.get(i + j)).getColour() == token.getColour()) {
                         count++;
                         if (count == 2) {
-                            millNeighbours.add(neighbours.get(i + j - 1));
-                            millNeighbours.add(neighbours.get(i + j));
-                            occupiedPosition.get(neighbours.get(i+j-1)).setPartOfMill(true);
-                            occupiedPosition.get(neighbours.get(i+j)).setPartOfMill(true);
-                            token.setPartOfMill(true);
+                            increaseMillId();
 
+                            Position p1 = neighbours.get(i + j - 1);
+                            Position p2 = neighbours.get(i + j);
+
+                            millNeighbours.add(p1);
+                            millNeighbours.add(p2);
+                            occupiedPosition.get(p1).increaseIsPartOfMillCount();
+                            occupiedPosition.get(p2).increaseIsPartOfMillCount();
+                            token.increaseIsPartOfMillCount();
+
+                            occupiedPosition.get(p1).updateMillId(millId);
+                            occupiedPosition.get(p2).updateMillId(millId);
+                            token.updateMillId(millId);
+
+                            millSets.put(millId, Arrays.asList(token, occupiedPosition.get(p1),
+                                    occupiedPosition.get(p2)));
                         }
                     }
                 }
@@ -252,17 +276,49 @@ public class Board {
         return millNeighbours.size() >= 2;
     }
 
+    /**
+     * Check if a token can be removed or not
+     * Cannot be removed if part of any mill
+     *
+     * @param tokenPosition the position on the board where the token is to be removed
+     */
     public boolean canBeRemoved(Position tokenPosition) {
         Token token = occupiedPosition.get(tokenPosition);
-        return !token.isPartOfMill();
+        return token.getIsPartOfMillCount() == 0;
     }
 
+    /**
+     * Method removes token from occupiedPosition HashMap
+     * Returns true or false based on if it can be removed
+     *
+     * @param tokenPosition the position on the board where the token is to be removed
+     */
     public boolean removeToken(Position tokenPosition) {
         if (canBeRemoved(tokenPosition)) {
             occupiedPosition.remove(tokenPosition);
             return true;
         }
         return false;
+    }
+
+    /**
+     * reduces the is part of mill count for a set of tokens
+     *
+     *
+     * @param token the token which is part of mill that has been moved
+     */
+    public void reduceIsMillCount(Token token) {
+        int[] ids = token.getMillId();
+        List<Token> tokens = millSets.get(ids[0]);
+        if (millSets.get(ids[1]) != null) {
+            tokens.addAll(millSets.get(ids[1]));
+        }
+
+        for (Token t : tokens) {
+            t.decreaseIsPartOfMillCount();
+            t.resetMillId(ids[0]);
+            t.resetMillId(ids[1]);
+        }
     }
 
 

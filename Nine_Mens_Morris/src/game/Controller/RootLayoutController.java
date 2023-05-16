@@ -114,8 +114,8 @@ public class RootLayoutController {
                     gameManager.setSelectedTokenPosition(getTilePosition(iv));
                 }
 
-                if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("wht") ||
-                        gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("blk")) {
+                if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("blk") ||
+                        gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("wht")) {
 
                     //check if all token has been placed on board yet or not
                     if (gameManager.getGamePhase() == GamePhase.PLACEMENT && grid.getId().equals(gameBoardGrid.getId())) {
@@ -190,8 +190,8 @@ public class RootLayoutController {
                 if (gameManager.isMill()) {
                     if (iv.getImage() != null && iv.getId() != null) {
                         System.out.println(gameManager.colorOnTurn());
-                        if(iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.WHITE ||
-                                iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.BLACK){
+                        if(iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.BLACK ||
+                                iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE){
                             Position position = getTilePosition(iv);
 
                             if (gameManager.removeToken(position)){

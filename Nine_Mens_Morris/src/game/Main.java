@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import game.Controller.RootLayoutController;
 
@@ -54,7 +55,7 @@ public class Main extends Application {
 //        stage.show();
 
         try {
-            Parent root = FXMLLoader.load(Main.class.getResource("view/MainMenu.fxml"));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("view/MainMenu.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
