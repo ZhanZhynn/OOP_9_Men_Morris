@@ -9,10 +9,9 @@ import java.util.List;
 
 /**
  * @author Priyesh
- *
+ * <p>
  * This class is used to manage the game.
  * It also contains the methods to change the game phase and the player turn.
- *
  */
 
 public class GameManager {
@@ -115,7 +114,7 @@ public class GameManager {
         }
     }
 
-    public void gameOver(){
+    public void gameOver() {
         gamePhase = GamePhase.GAMEOVER;
         player1.deactivateTurn();
         player2.deactivateTurn();
@@ -139,7 +138,7 @@ public class GameManager {
         board.placeNewToken(position, colour);
         totalTokenPlaced++;
         // Update the number of tokens placed by the player
-        if (player1.isTurn()){
+        if (player1.isTurn()) {
             player1.tilePlaced();
         } else {
             player2.tilePlaced();
@@ -147,7 +146,7 @@ public class GameManager {
 
         System.out.println("player 1:" + player1.getTotalPiecesOnBoard() + " player 2:" + player2.getTotalPiecesOnBoard());
 
-        if(totalTokenPlaced == MAXTOKEN){
+        if (totalTokenPlaced == MAXTOKEN) {
             gamePhase = GamePhase.MOVEMENT;
         }
     }
@@ -175,48 +174,66 @@ public class GameManager {
      *
      * @param newPosition the position to be validated
      * @return true if the token can be placed at the position, false otherwise.
-     *
      */
     public boolean validateTokenPlacement(Position newPosition) {
+
+        if (player1.isTurn() && player1.getTotalPiecesOnBoard() == 3 && player1.getTotalPiecesToPlace() == 0 ||
+                player2.isTurn() && player2.getTotalPiecesOnBoard() == 3 && player2.getTotalPiecesToPlace() == 0) {
+            return true;
+        }
+
         if (gamePhase == GamePhase.MOVEMENT) {
-            return board.validateTokenPlacement(newPosition);
+            List<Position> possiblePositions = board.getValidPositions(board.getOldPosition());
+            for (Position position : possiblePositions) {
+                if (newPosition.equals(position)) {
+                    return true;
+                }
+            }
+//            return board.validateTokenPlacement(newPosition);
+            return false;
         }
         return true;
     }
 
     /**
      * Check whether the game is won
-     *
+     * <p>
      * winning condition: opponent only has 2 tokens left
      */
-    public int checkWin(){
-        if (player1.getTotalPiecesToPlace() == 0 && player1.getTotalPiecesOnBoard() < 3){
+    public int checkWin() {
+        if (player1.getTotalPiecesToPlace() == 0 && player1.getTotalPiecesOnBoard() < 3) {
             return 2;   // player 2 wins
-        } else if (player2.getTotalPiecesToPlace() == 0 && player2.getTotalPiecesOnBoard() < 3){
+        } else if (player2.getTotalPiecesToPlace() == 0 && player2.getTotalPiecesOnBoard() < 3) {
             return 1;   // player 1 wins
         }
         return 0;
     }
 
-
-
-    public void updateMillStatus(Position tokenPosition){
+    public void updateMillStatus(Position tokenPosition) {
         isMill = board.checkIfMill(tokenPosition);
     }
 
-    public boolean removeToken(Position tokenPosition){
-        if (player1.isTurn()){
-            player1.removeToken();
-        } else {
-            player2.removeToken();
-        }
-        System.out.println("player 1:" + player1.getTotalPiecesOnBoard() + " player 2:" + player2.getTotalPiecesOnBoard());
+    public boolean removeToken(Position tokenPosition) {
 
-        return board.removeToken(tokenPosition);
+        if (board.removeToken(tokenPosition)) {
+            if (player1.isTurn()) {
+                player1.removeToken();
+            } else {
+                player2.removeToken();
+            }
+            System.out.println("player 1:" + player1.getTotalPiecesOnBoard() + " player 2:" + player2.getTotalPiecesOnBoard());
+            return true;
+        }
+        return false;
     }
 
 
     public boolean anyMovePossible() {
+
+        if (player1.isTurn() && player1.getTotalPiecesOnBoard() == 3 && player1.getTotalPiecesToPlace() == 0 ||
+                player2.isTurn() && player2.getTotalPiecesOnBoard() == 3 && player2.getTotalPiecesToPlace() == 0) {
+            return true;
+        }
 
         for (Position position : board.getOccupiedPosition().keySet()) {
             if (colorOnTurn() == board.getOccupiedPosition().get(position).getColour()) {
