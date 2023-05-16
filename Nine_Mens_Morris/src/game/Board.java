@@ -101,45 +101,44 @@ public class Board {
         this.millId = this.millId + 1;
     }
 
-    /**
-     * This method is used to validate whether a token can be placed at the new position from the current position
-     *
-     * @param newPosition the position on the board where the token is to be placed
-     */
-    public boolean validateTokenPlacement(Position newPosition) {
-        Integer p1 = boardPositions.get(oldPosition);
-        Integer p2 = boardPositions.get(newPosition);
-
-        if (p1 % 8 == 0) {
-            // for case when 8 try move to 9
-            if (p1 - p2 == -1) {
-                return false;
-            }
-            //for case when 8 move to 1
-            if (p1 - p2 == 7) {
-                return true;
-            }
-        }
-        //1,9,17 special edge cases when they move to last position in the square
-        if (p1 == 1 || p1 == 9 || p1 == 17) {
-            if (p1 - p2 == -7) {
-                return true;
-            }
-            if (p1 - p2 == 1) {
-                return false;
-            }
-        }
-        //move to neighbour
-        if (Math.abs(p1 - p2) == 1) {
-            return true;
-        }
-        //middle linking square movement
-        if (p1 % 2 == 0) {
-            return Math.abs(p1 - p2) == 8;
-        }
-        return false;
-    }
-
+//    /**
+//     * This method is used to validate whether a token can be placed at the new position from the current position
+//     *
+//     * @param newPosition the position on the board where the token is to be placed
+//     */
+//    public boolean validateTokenPlacement(Position newPosition) {
+//        Integer p1 = boardPositions.get(oldPosition);
+//        Integer p2 = boardPositions.get(newPosition);
+//
+//        if (p1 % 8 == 0) {
+//            // for case when 8 try move to 9
+//            if (p1 - p2 == -1) {
+//                return false;
+//            }
+//            //for case when 8 move to 1
+//            if (p1 - p2 == 7) {
+//                return true;
+//            }
+//        }
+//        //1,9,17 special edge cases when they move to last position in the square
+//        if (p1 == 1 || p1 == 9 || p1 == 17) {
+//            if (p1 - p2 == -7) {
+//                return true;
+//            }
+//            if (p1 - p2 == 1) {
+//                return false;
+//            }
+//        }
+//        //move to neighbour
+//        if (Math.abs(p1 - p2) == 1) {
+//            return true;
+//        }
+//        //middle linking square movement
+//        if (p1 % 2 == 0) {
+//            return Math.abs(p1 - p2) == 8;
+//        }
+//        return false;
+//    }
 
     public List<Position> getValidPositions(Position position) {
         Integer p1 = boardPositions.get(position);
@@ -208,6 +207,7 @@ public class Board {
         //get the token
         Token token = occupiedPosition.get(oldPosition);
 
+        //if token part of mill, moving cause mill to change
         if (token.getIsPartOfMillCount() > 0) {
             reduceIsMillCount(token);
         }
@@ -220,6 +220,11 @@ public class Board {
         occupiedPosition.put(newPosition, token);
     }
 
+    /**
+     * Returns neighbouring postions where a mill is possible
+     *
+     * @param newPosition the position on the board where the token is to be placed
+     */
     public List<Position> getNeighbours(Position newPosition) {
         Integer num1 = boardPositions.get(newPosition);
         List<Position> neighbours = new ArrayList<>();
@@ -277,7 +282,11 @@ public class Board {
         return neighbours;
     }
 
-
+    /**
+     * To check if a mill has formed after the player moved a token
+     *
+     * @param newPosition the position on the board where the token is to be placed
+     */
     public boolean checkIfMill(Position newPosition) {
         List<Position> millNeighbours = new ArrayList<>();
         List<Position> neighbours = getNeighbours(newPosition);
@@ -299,14 +308,19 @@ public class Board {
 
                             millNeighbours.add(p1);
                             millNeighbours.add(p2);
+
+                            //update the token mill count
                             occupiedPosition.get(p1).increaseIsPartOfMillCount();
                             occupiedPosition.get(p2).increaseIsPartOfMillCount();
                             token.increaseIsPartOfMillCount();
 
+
+                            //update the mill id of a token
                             occupiedPosition.get(p1).updateMillId(millId);
                             occupiedPosition.get(p2).updateMillId(millId);
                             token.updateMillId(millId);
 
+                            //put the new mill to the hashmap
                             millSets.put(millId, Arrays.asList(token, occupiedPosition.get(p1),
                                     occupiedPosition.get(p2)));
                         }
@@ -325,8 +339,15 @@ public class Board {
      * @param tokenPosition the position on the board where the token is to be removed
      */
     public boolean canBeRemoved(Position tokenPosition) {
-        Token token = occupiedPosition.get(tokenPosition);
-        return token.getIsPartOfMillCount() == 0;
+
+        for (Token token : occupiedPosition.values()){
+            if (token.getIsPartOfMillCount()==0){
+                Token t = occupiedPosition.get(tokenPosition);
+                return t.getIsPartOfMillCount() == 0;
+            }
+        }
+        return true;
+
     }
 
     /**
@@ -345,6 +366,7 @@ public class Board {
 
     /**
      * reduces the is part of mill count for a set of tokens
+     * resets the mill id if no longer part of the mill
      *
      * @param token the token which is part of mill that has been moved
      */
