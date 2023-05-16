@@ -4,14 +4,14 @@ import game.Player.HumanPlayer;
 import game.Utils.Colour;
 import game.Utils.GamePhase;
 
-import java.awt.*;
+import java.util.List;
+
 
 /**
  * @author Priyesh
- *
+ * <p>
  * This class is used to manage the game.
  * It also contains the methods to change the game phase and the player turn.
- *
  */
 
 public class GameManager {
@@ -98,7 +98,7 @@ public class GameManager {
 
 
     /**
-     * This method is used to change the game phase.
+     * This method is used to change player turn
      */
     public void changePlayerTurn() {
         if (player1.isTurn()) {
@@ -113,7 +113,7 @@ public class GameManager {
     /**
      * This method is used to get the colour of the player whose turn it is.
      */
-    public Colour colorOnTurn (){
+    public Colour colorOnTurn() {
         return player1.isTurn() ? player1.getColour() : player2.getColour();
     }
 
@@ -127,7 +127,7 @@ public class GameManager {
         board.placeNewToken(position, colour);
         totalTokenPlaced++;
 
-        if(totalTokenPlaced == MAXTOKEN){
+        if (totalTokenPlaced == MAXTOKEN) {
             gamePhase = GamePhase.MOVEMENT;
         }
     }
@@ -137,7 +137,7 @@ public class GameManager {
      *
      * @param position the position to move the token to.
      */
-    public void moveToken(Position position){
+    public void moveToken(Position position) {
         board.moveToken(position);
     }
 
@@ -155,7 +155,6 @@ public class GameManager {
      *
      * @param newPosition the position to be validated
      * @return true if the token can be placed at the position, false otherwise.
-     *
      */
     public boolean validateTokenPlacement(Position newPosition) {
         if (gamePhase == GamePhase.MOVEMENT) {
@@ -164,12 +163,29 @@ public class GameManager {
         return true;
     }
 
-    public void updateMillStatus(Position tokenPosition){
+    public void updateMillStatus(Position tokenPosition) {
         isMill = board.checkIfMill(tokenPosition);
     }
 
-    public boolean removeToken(Position tokenPosition){
+    public boolean removeToken(Position tokenPosition) {
         return board.removeToken(tokenPosition);
+    }
+
+
+    public boolean anyMovePossible() {
+
+        for (Position position : board.getOccupiedPosition().keySet()) {
+            if (colorOnTurn() == board.getOccupiedPosition().get(position).getColour()) {
+                List<Position> possibleMoves = board.getValidPositions(position);
+
+                for (Position possibleMove : possibleMoves) {
+                    if (board.getOccupiedPosition().get(possibleMove) == null) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }
