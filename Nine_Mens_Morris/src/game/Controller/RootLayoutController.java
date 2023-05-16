@@ -104,7 +104,7 @@ public class RootLayoutController {
                 }
 
                 //draw check
-                if(!gameManager.anyMovePossible()){
+                if(!gameManager.anyMovePossible() && gameManager.getGamePhase() != GamePhase.PLACEMENT){
                     System.out.println("NO MORE MOVESSSSSSS!!!!!");
                     return;
                 }
