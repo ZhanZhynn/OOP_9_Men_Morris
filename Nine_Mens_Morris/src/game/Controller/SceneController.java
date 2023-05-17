@@ -31,6 +31,22 @@ public class SceneController {
         stageFrom.show();
     }
 
+    public void switchToRuleScene(ActionEvent event)throws IOException {
+        root = FXMLLoader.load(Main.class.getResource("view/Rules.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void rulesToMainMenu(ActionEvent event)throws IOException {
+        root = FXMLLoader.load(Main.class.getResource("view/MainMenu.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void switchToGameScene(ActionEvent event) throws IOException {
 //        root = FXMLLoader.load(Main.class.getResource("view/RootLayout.fxml"));
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/RootLayout.fxml"));
