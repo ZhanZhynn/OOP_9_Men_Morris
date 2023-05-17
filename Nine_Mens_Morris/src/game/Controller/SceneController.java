@@ -62,7 +62,7 @@ public class SceneController {
         Platform.setImplicitExit(false);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(Main.class.getResource("View/application.css").toExternalForm());
+        scene.getStylesheets().add(Main.class.getResource("view/application.css").toExternalForm());
 
         stage.setScene(scene);
         stage.setTitle("Nine Men Moris");
