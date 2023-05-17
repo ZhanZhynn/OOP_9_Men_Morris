@@ -6,13 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="500.0" style="-fx-background-color: #efebe5;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Controller.SceneController">
+<AnchorPane id="main-menu" prefHeight="680.0" prefWidth="500.0" style="-fx-background-color: #efebe5;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Controller.SceneController">
    <children>
-      <ImageView fitHeight="501.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../game_title.png" />
-         </image>
-      </ImageView>
+<!--      <ImageView fitHeight="501.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">-->
+<!--         <image>-->
+<!--&lt;!&ndash;            <Image url="@../../game_title.png" />&ndash;&gt;-->
+<!--            <Image url="../res/game_title.png" />-->
+<!--         </image>-->
+<!--      </ImageView>-->
       <Button layoutX="156.0" layoutY="512.0" mnemonicParsing="false" onAction="#switchToGameScene" style="-fx-min-width: 200; -fx-font-size: 20;" stylesheets="@button.css" text="Start">
          <font>
             <Font size="20.0" />

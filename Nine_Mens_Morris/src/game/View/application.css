@@ -15,3 +15,7 @@
 #right-tile-grid > .image-view {
 	-fx-image: url(file:res/white_tile.png);
 }
+
+#main-menu {
+	-fx-background-image: url(file:res/game_title.png);
+}
