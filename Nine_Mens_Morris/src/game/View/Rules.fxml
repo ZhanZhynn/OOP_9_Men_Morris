@@ -32,7 +32,7 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-        <Label layoutX="50.0" layoutY="193.0" prefHeight="30.0" prefWidth="300.0" text="Each player starts with nine pieces of their color." wrapText="true">
+        <Label layoutX="50.0" layoutY="193.0" prefHeight="30.0" prefWidth="349.0" text="Each player starts with nine pieces of their color." wrapText="true">
             <font>
                 <Font size="16.0" />
             </font>
