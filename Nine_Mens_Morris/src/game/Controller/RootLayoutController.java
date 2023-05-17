@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -52,7 +53,8 @@ public class RootLayoutController {
     private GridPane leftPocketGrid;    // pocket grid is initial token placement before game starts
     @FXML
     private GridPane rightPocketGrid;
-
+    @FXML
+    private Label playerTurnLabel;      // label to display current player turn
     private SceneController sceneController;    //to handle exit to main menu from game scene
 
     /**
@@ -92,10 +94,12 @@ public class RootLayoutController {
      * @param grid to be allowed to drag from
      */
     private void initTokenDrag(GridPane grid) {
+
         for (Node i : grid.getChildren()) {
             ImageView iv = (ImageView) i;
 
             iv.setOnDragDetected(event -> { // MouseEvent
+
                 if (iv.getImage() == null) {
                     return;
                 }
@@ -106,12 +110,15 @@ public class RootLayoutController {
                 //draw check
                 if(!gameManager.anyMovePossible() && gameManager.getGamePhase() != GamePhase.PLACEMENT){
                     System.out.println("NO MORE MOVESSSSSSS!!!!!");
+                    playerTurnLabel.setText("Draw, no more moves available");
                     return;
                 }
 
                 //MILL CHECK
                 if (gameManager.isMill()) {
                     System.out.println("THERE IS A MILL");
+                    //update label
+                    playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn().toString() + " can remove opponent token");
                     return;
                 }
 
@@ -126,6 +133,8 @@ public class RootLayoutController {
                     //check if all token has been placed on board yet or not
                     if (gameManager.getGamePhase() == GamePhase.PLACEMENT && grid.getId().equals(gameBoardGrid.getId())) {
                         System.out.println("NEED TO PLACE ALL TOKEN FIRST");
+                        //update label
+                        playerTurnLabel.setText("NEED TO PLACE ALL TOKEN FIRST");
                         return;
                     }
 
@@ -145,6 +154,7 @@ public class RootLayoutController {
                         iv.setId(null);
                     }
                 }
+
                 event.consume();
             });
         }
@@ -177,10 +187,21 @@ public class RootLayoutController {
                             iv.setId(db.getString());
                             board.setTokenPlacedPosition(placePosition);
                             gameManager.changePlayerTurn();
+                            System.out.println(gameManager.colorOnTurn() + "turn");
+                            playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+
+
                             gameManager.updateMillStatus(placePosition);
+
+                            if (gameManager.isMill()) {
+                                //update label
+                                playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
+                            }
+
                             event.setDropCompleted(true);
                         } else {
                             System.out.print("CANNOT PLACE");
+                            playerTurnLabel.setText("Token cannot be placed here");
                         }
                     }
                 }
@@ -200,14 +221,19 @@ public class RootLayoutController {
                                 iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE){
                             Position position = getTilePosition(iv);
 
-                            if (gameManager.removeToken(position)){
+                            if (gameManager.removeToken(position)){//if token can be removed
                                 iv.setImage(null);
                                 iv.setId(null);
 
                                 gameManager.setMill(false);
+                                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+
+
                             }
                             else{
                                 System.out.println("TOKEN CANNOT BE REMOVED");
+                                //update label
+                                playerTurnLabel.setText("Part of mill, cannot remove token");
                             }
 
                         }
@@ -220,10 +246,12 @@ public class RootLayoutController {
 
                     if (gameManager.checkWin() == 1){
                         System.out.println("Player 1 WIN");
+                        playerTurnLabel.setText("Player 1 WIN");
 //                        gameManager.gameOver();
                     }
                     else{
                         System.out.println("Player 2 WIN");
+                        playerTurnLabel.setText("Player 2 WIN");
 
 //                        gameManager.gameOver();
                     }

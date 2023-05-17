@@ -5,10 +5,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.input.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.input.KeyCodeCombination?>
-<VBox prefHeight="680.0" prefWidth="500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Controller.RootLayoutController">
+<VBox prefHeight="750.0" prefWidth="500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Controller.RootLayoutController">
 <children>
     <MenuBar>
         <menus>
@@ -138,6 +139,11 @@
              <Label layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="47.0" text="Player 2" />
          </children>
       </HBox>
+    <Separator prefHeight="10.0" prefWidth="500.0" />
+      <Label fx:id="playerTurnLabel" prefHeight="34.0" prefWidth="500.0" text="BLACK's turn">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
 </children>
 <padding>
     <Insets bottom="5.0" />

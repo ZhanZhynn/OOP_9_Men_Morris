@@ -128,6 +128,12 @@ public class GameManager {
         return player1.isTurn() ? player1.getColour() : player2.getColour();
     }
 
+    public Colour isOtherTurn(){
+        return player1.isTurn() ? player2.getColour() : player1.getColour();
+    }
+
+
+
     /**
      * This method is used to place a token on the board.
      *
