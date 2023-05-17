@@ -138,7 +138,7 @@ public class RootLayoutController {
                         return;
                     }
 
-                    Dragboard db = iv.startDragAndDrop(TransferMode.ANY);
+                    Dragboard db = iv.startDragAndDrop(TransferMode.MOVE);
                     ClipboardContent content = new ClipboardContent();
                     content.putImage(iv.getImage());
                     content.putString(iv.getId());
