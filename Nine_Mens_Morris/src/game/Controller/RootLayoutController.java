@@ -257,6 +257,7 @@ public class RootLayoutController {
                     }
                     try {
                         handleGameover();
+                        handleGameover();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -293,7 +294,6 @@ public class RootLayoutController {
             boardGridChildren.add((ImageView) i);
         }
         initGameManagerPropertyListeners();
-
 
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
         initTokenDrag(rightPocketGrid);
@@ -372,7 +372,7 @@ public class RootLayoutController {
 
     }
     public void handleGameover() throws IOException {
-        gameDialog("Game Over", "DO you wants to start a new game?", "All progress will be lost.", 0);
+        gameDialog("Game Over", "Do you want to start a new game?", "All progress will be lost.", 0);
     }
 
     /**
