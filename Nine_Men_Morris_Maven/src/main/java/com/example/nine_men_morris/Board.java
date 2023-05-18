@@ -340,11 +340,13 @@ public class Board {
     public boolean canBeRemoved(Position tokenPosition) {
 
         for (Token token : occupiedPosition.values()){
-            if (token.getIsPartOfMillCount()==0){
+            if (token.getIsPartOfMillCount()==0 && token.getColour() == occupiedPosition.get(tokenPosition).getColour())  {
                 Token t = occupiedPosition.get(tokenPosition);
                 return t.getIsPartOfMillCount() == 0;
             }
         }
+        // for cases where force removal is enforced
+        reduceIsMillCount(occupiedPosition.get(tokenPosition));
         return true;
 
     }
@@ -370,7 +372,7 @@ public class Board {
      * @param token the token which is part of mill that has been moved
      */
     public void reduceIsMillCount(Token token) {
-        int[] ids = token.getMillId();
+        int[] ids = token.getMillId().clone();
         List<Token> tokens = new ArrayList<>();
 
         if (millSets.get(ids[0]) != null) {
