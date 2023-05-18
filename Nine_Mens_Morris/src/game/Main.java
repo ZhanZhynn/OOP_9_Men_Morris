@@ -2,6 +2,7 @@ package game;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import game.Controller.RootLayoutController;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 
@@ -45,7 +47,6 @@ public class Main extends Application {
     private GameManager gameManager;
 
     public static void main(String[] args) {
-
 
 
         launch(args);
@@ -77,11 +78,21 @@ public class Main extends Application {
             });
             mediaPlayer.play();
 
+            //close program when click window close
+            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("view/MainMenu.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
+
+
 
 
 
