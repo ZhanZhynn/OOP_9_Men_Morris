@@ -39,6 +39,7 @@ public class Main extends Application {
     public static final String GAME_NAME = "Nine Men Morris";
     public static final String GAME_VERSION = "1.0";
     public static final String FULL_NAME = GAME_NAME + " " + GAME_VERSION;
+    public static MediaPlayer mediaPlayer;
 
     private RootLayoutController controller;
     private GameManager gameManager;
@@ -46,11 +47,13 @@ public class Main extends Application {
     public static void main(String[] args) {
 
 
+
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
 //        StackPane layout = new StackPane();
 //
 //        Button button = new Button("Click me");
@@ -63,9 +66,10 @@ public class Main extends Application {
 
 
         try {
+
             //play music
             Media sound = new Media(getClass().getResource("musicRes/lofi2.mp3").toExternalForm());
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.setOnEndOfMedia(new Runnable() {    //loop music
                 public void run() {
                     mediaPlayer.seek(Duration.ZERO);
@@ -73,10 +77,14 @@ public class Main extends Application {
             });
             mediaPlayer.play();
 
+
             Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("view/MainMenu.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
+
+
+
 
 
 
