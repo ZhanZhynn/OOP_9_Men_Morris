@@ -9,16 +9,22 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
 import game.Controller.RootLayoutController;
+import javafx.util.Duration;
+
+
 
 /**
  * @author Hee Zhan Zhynn
@@ -39,6 +45,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
+
         launch(args);
     }
 
@@ -54,7 +61,18 @@ public class Main extends Application {
 //        stage.setTitle("JavaFX20");
 //        stage.show();
 
+
         try {
+            //play music
+            Media sound = new Media(getClass().getResource("musicRes/lofi2.mp3").toExternalForm());
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.setOnEndOfMedia(new Runnable() {    //loop music
+                public void run() {
+                    mediaPlayer.seek(Duration.ZERO);
+                }
+            });
+            mediaPlayer.play();
+
             Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("view/MainMenu.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
