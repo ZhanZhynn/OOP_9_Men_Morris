@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -49,6 +46,9 @@ public class RootLayoutController {
     private GridPane rightPocketGrid;
     @FXML
     private Label playerTurnLabel;      // label to display current player turn
+    @FXML
+    private MenuItem musicLabel;
+
     private SceneController sceneController;    //to handle exit to main menu from game scene
 
     /**
@@ -391,5 +391,21 @@ public class RootLayoutController {
         gameDialog("Exit to Main Menu", "Are you sure you want to quit?", "All progress will be lost.", 2);
     }
 
+    public void handleMusic(){
+        if (Main.mediaPlayer.isMute()){
+            musicLabel.setText("Play Music");
+            Main.mediaPlayer.setMute(false);
+            musicLabel.setText("Mute Music");
+            //set menu item text
+
+        }
+        else{
+            musicLabel.setText("Mute Music");
+            Main.mediaPlayer.setMute(true);
+            musicLabel.setText("Play Music");
+
+        }
+
+    }
 
 }
