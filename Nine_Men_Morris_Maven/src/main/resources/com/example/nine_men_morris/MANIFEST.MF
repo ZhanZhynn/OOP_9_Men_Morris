@@ -1,0 +1,2 @@
+Main-Class: com.example.nine_men_morris.Main
+Class-Path: C:/Users/prikk/Downloads/openjfx-17.0.7_windows-x64_bin-sdk/javafx-sdk-17.0.7/lib/*
