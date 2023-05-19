@@ -46,7 +46,7 @@ If the game runs successfully, you will see the interface below:
 
 <img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
-**Troubleshoot**
+**Troubleshoot** <br>
 If you face the error as shown below, it is likely that you have not set up JavaFX path correctly. Kindly update your path according to
 where you saved your JavaFX SDK.
 
