@@ -49,13 +49,14 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 
 **Instructions**
 
-1. Open the 'Nine_Mens_Morris' folder in IntelliJ, it should automatically recognise that Maven is included.
-2. In IntelliJ, click on the **Maven** symbol in the toolbar at the right side of the screen.
-3. Click on **Lifecycle** to expand it, and then double click on **package**.
-4. Wait for Maven to build and package the JAR.
-5. After you get the "BUILD SUCCESS" message, go to the target folder to access the generated JAR file.
-6. Run the JAR file. There might be some warnings in the consoles, but they should be harmless.
-7. Happy gaming!
+1. Open the 'Nine_Mens_Morris' folder in IntelliJ, it should load it as a Maven project.
+2. If it doesn't, load the project using the Maven pop up on the bottom.
+3. In IntelliJ, click on the **Maven** symbol in the toolbar at the right side of the screen.
+4. Click on **Lifecycle** to expand it, and then double click on **package**.
+5. Wait for Maven to build and package the JAR.
+6. After you get the "BUILD SUCCESS" message, go to the target folder to access the generated JAR file.
+7. Run the JAR file. There might be some warnings in the consoles, but they should be harmless.
+8. Happy gaming!
 
 **Video Tutorial**
 
