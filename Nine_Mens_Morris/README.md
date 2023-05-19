@@ -25,7 +25,7 @@ Program is developed using Java and JavaFX.
 If the game runs successfully, you will see the interface below:
 
 
-<img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
+<img src="res/9mm_cover.png" alt="9MM Game Screenshot"/>
 
 ## Rules implemented so far
 1. All basic rules have been implemented.
