@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d6c5ba4-bbb4-44ec-8a54-bba97aac303c" name="Changes" comment="Minor changes">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/META-INF/lofi.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Controller/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Controller/RootLayoutController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Controller/SceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Controller/SceneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="0d6c5ba4-bbb4-44ec-8a54-bba97aac303c" name="Changes" comment="Fix jar compilation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,10 +55,12 @@
       <recent name="C:\Users\Hee's Desktop\Documents\0.Uni\Uni Git Projects\project\Nine_Mens_Morris\res\META-INF" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.project-1.0-SNAPSHOT.jar">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="azul-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="game.Main" />
-      <module name="Nine_Mens_Morris" />
+      <module name="project" />
       <option name="VM_PARAMETERS" value="--module-path &quot;$JavaFX20$&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -78,6 +68,7 @@
     </configuration>
     <configuration name="project-1.0-SNAPSHOT.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/project-1.0-SNAPSHOT.jar" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="JetRunConfigurationType">
@@ -273,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682345367957</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Fix jar compilation">
+      <created>1684499750961</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1684499750961</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,6 +305,7 @@
     <MESSAGE value="Fix game bug" />
     <MESSAGE value="Remove out cache" />
     <MESSAGE value="Minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor changes" />
+    <MESSAGE value="Fix jar compilation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix jar compilation" />
   </component>
 </project>
