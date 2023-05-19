@@ -67,6 +67,7 @@ Inside the Sprint 3 folder we have:
 2. 9mm_UML_Sprint3.pdf - our current uml class diagram, updated for Sprint 3
 3. FIT3077_Sprint_3_Design_Rationale.pdf - our design rationale for Sprint 3
 4. Releases folder - containing .bat file for Windows and .jar for MacOs
+5. Sprint 3 Youtube Demo: https://youtu.be/z88bg2aQVc4
 
 Please refer to the readme in the Sprint 3 folder for more details on how to run our game.
 
