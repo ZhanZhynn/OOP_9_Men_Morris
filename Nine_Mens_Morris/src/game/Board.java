@@ -102,8 +102,9 @@ public class Board {
     }
 
     /**
-     * This method is used to set a mill id for the mill formation. Mill id are always unique and increasing.
-     * MillId is used to identify the mill formation.
+     * MillId is used to identify the mill formations on the board. Mill id are always unique and increasing.
+     * It it used to determine the tokens that are part of the mill.
+     *
      */
     public void increaseMillId() {
         this.millId = this.millId + 1;
