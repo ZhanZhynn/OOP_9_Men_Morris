@@ -24,6 +24,10 @@ public class Token {
         millId = new int[]{0, 0};
     }
 
+    /**
+     * This method is used to get the colour of the token.
+     * @return
+     */
     public Colour getColour() {
         return colour;
     }
@@ -32,6 +36,10 @@ public class Token {
         this.colour = colour;
     }
 
+    /**
+     * This method is used to get the position of the token.
+     * @return
+     */
     public Position getPosition() {
         return position;
     }
@@ -40,6 +48,10 @@ public class Token {
         this.position = position;
     }
 
+    /**
+     * This method is used to get the number of mills the token is part of.
+     * @return
+     */
     public int getIsPartOfMillCount() {
         return isPartOfMillCount;
     }
@@ -47,6 +59,7 @@ public class Token {
     public void setIsPartOfMillCount(int isPartOfMillCount) {
         this.isPartOfMillCount = isPartOfMillCount;
     }
+
 
     public void increaseIsPartOfMillCount() {
         this.isPartOfMillCount = this.isPartOfMillCount + 1;

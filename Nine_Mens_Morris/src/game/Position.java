@@ -34,7 +34,11 @@ public class Position {
     public Position() {
     }
 
-
+    /**
+     * This method is used to get the position of the board according to the column and row of grid pane.
+     *
+     * @return position
+     */
     public int getX() {
         return x;
     }
@@ -59,6 +63,9 @@ public class Position {
                 '}';
     }
 
+    /**
+     * Helper to validate the position
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,6 +74,9 @@ public class Position {
         return x == position.x && y == position.y;
     }
 
+    /**
+     * Helper for hashing
+     */
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
