@@ -55,6 +55,19 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 
 ![](Nine_Mens_Morris/res/generate-jar-maven.mp4)
 
+
+
+## Generate BAT file
+
+**Instructions**
+
+1. Open Nine_Men_Morris_Maven in intelliJ
+2. Load project using the Maven pop up on bottom left
+3. In IntelliJ, click on the **Maven** symbol in the toolbar at the right side of the screen.
+4. Click on Nine_Men_Morris > plugins > compiler > compiler:compile to compile the code
+5. Click on plugins > javafx > javafx:jlink to create an app.zip in target folder
+
+
 ## Screenshots
 <img src="res/9mm_cover.png" alt="9MM Main menu Screenshot"/>
 <img src="res/ingame_screenshot.png" alt="9MM in game Screenshot"/>
