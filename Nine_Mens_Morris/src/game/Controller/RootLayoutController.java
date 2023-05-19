@@ -257,7 +257,6 @@ public class RootLayoutController {
                     }
                     try {
                         handleGameover();
-                        handleGameover();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
