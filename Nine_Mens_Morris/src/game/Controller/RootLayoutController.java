@@ -312,7 +312,7 @@ public class RootLayoutController {
      */
     private void initWindow() {
         stage.getScene().getStylesheets().clear();
-        stage.getScene().getStylesheets().add(Main.class.getResource("view/RootLayout.fxml").toExternalForm());
+        stage.getScene().getStylesheets().add(Main.class.getResource("View/RootLayout.fxml").toExternalForm());
         playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn"); //set label to player 1 turn
 
 //        if (gameManager.getGamePhase() == GamePhase.GAMEOVER) {
