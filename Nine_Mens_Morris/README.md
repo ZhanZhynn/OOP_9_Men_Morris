@@ -4,13 +4,23 @@ Sprint 3 Demo: https://youtu.be/z88bg2aQVc4
 ## Introduction
 Program is developed using Java and JavaFX.
 
-## How to run
-**To run our 9MM game, please follow the steps below:**
+## How to run the game
+1. Download the latest release from [here](https://git.infotech.monash.edu/fit3077-s1-2023/MA_Thursday4pm_Team6/project/-/tree/main/Sprint%203/Releases).
+
+2. There are 2 versions, a Windows Batch File and a JAR file:
+   - For Windows: (recommended if you are using Windows)
+     - unzip <'filename'>, locate the directory of the .bat file and run it. 
+   - For Mac or Windows:
+     - you will need Java 17 or above installed. 
+     - Run the .jar file by double clicking on it or run it from the terminal in the folder using the command `java -jar 9mm.jar`
+
+
+## How to compile and run the build on intelliJ
+**To build our 9MM game, please follow the steps below:**
 1. Clone the GitLab repository
 2. Set up JavaFX in Intellij. You may refer this [video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiAxeq42Mn-AhXk1TgGHWZkCUAQwqsBegQICBAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIvsvjUq38Jc&usg=AOvVaw0gUcKQI4-TAIw965WQCYux) or JavaFX's [website](https://openjfx.io/openjfx-docs/) if necessary.
 3. Set up VM configuration for JavaFX (shown in last part of video) and run from there.
 
-*Attempt was made to create a jar file for the game, but it was unsuccessful. Hence, the game can only be run from Intellij.*
 
 If the game runs successfully, you will see the interface below:
 
@@ -18,16 +28,15 @@ If the game runs successfully, you will see the interface below:
 <img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
 ## Rules implemented so far
-1. All tokens must be placed before you can start moving.
-2. Tokens can only be moved to the immediate neighbour positions if unoccupied.
+1. All basic rules have been implemented.
 
-## Dependencies
+## Dependencies to build the project
 - Java JDK 17.0.7
-- JavaFX 20.0.1
+- JavaFX 17
 - JavaFX Scene Builder (optional)
 
 ## Troubleshoot
-If you face the error as shown below, it is likely that you have not set up JavaFX path correctly. Kindly update your path according to 
+If you face the error setting up JavaFX in intelliJ as shown below, it is likely that you have not set up JavaFX path correctly. Kindly update your path according to 
 where you saved your JavaFX SDK.
 ![troubleshoot.png](res%2Ftroubleshoot.png)
 
