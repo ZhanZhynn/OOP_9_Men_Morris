@@ -53,7 +53,7 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 
 **Video Tutorial**
 
-![](Nine_Mens_Morris/res/generate-jar-maven.mp4)
+![](res/generate-jar-maven.mp4)
 
 
 
