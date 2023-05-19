@@ -2,8 +2,11 @@
 
 ## Documentation
 
+Please click on the link to the relevant sprint for information on accessing deliverables.
+
 [Sprint 1](#sprint-1) <br>
-[Sprint 2](#sprint-2)
+[Sprint 2](#sprint-2) <br>
+[Sprint 3](#sprint-3)
 
 ## Sprint 1 
 
@@ -43,7 +46,7 @@ If the game runs successfully, you will see the interface below:
 
 <img src="/Sprint 2/game_screenshot.jpeg" alt="9MM Game Screenshot"/>
 
-## Troubleshoot
+**Troubleshoot** <br>
 If you face the error as shown below, it is likely that you have not set up JavaFX path correctly. Kindly update your path according to
 where you saved your JavaFX SDK.
 
@@ -52,4 +55,12 @@ where you saved your JavaFX SDK.
 This configuration can be found in the VM options of the Run/Debug Configurations.
 <img src="Nine_Mens_Morris/res/troubleshoot1.png" alt="Troubleshoot1"/>
 
+## Sprint 3
 
+Sprint 3 documentation deliverables can be found in the Sprint 3 folder, while source code for our 9MM game is stored in the Nine_Mens_Morris folder.
+
+Inside the Sprint 3 folder we have:
+
+**Submission Files (to be marked)**
+1. Sequence Diagrams folder - containing 5 sequence diagrams illustrating 5 distinct interactions in our program
+2. FIT3077_Sprint_3_Design_Rationale.pdf - our design rationale for Sprint 3
