@@ -4,6 +4,7 @@ Sprint 3 Demo: https://youtu.be/z88bg2aQVc4
 ## Introduction
 Program is developed using Java and JavaFX.
 
+
 ## How to run the game
 1. Download the latest release from [here](https://git.infotech.monash.edu/fit3077-s1-2023/MA_Thursday4pm_Team6/project/-/tree/main/Sprint%203/Releases).
 
@@ -21,11 +22,7 @@ Program is developed using Java and JavaFX.
 2. Set up JavaFX in Intellij. You may refer this [video](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiAxeq42Mn-AhXk1TgGHWZkCUAQwqsBegQICBAF&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIvsvjUq38Jc&usg=AOvVaw0gUcKQI4-TAIw965WQCYux) or JavaFX's [website](https://openjfx.io/openjfx-docs/) if necessary.
 3. Set up VM configuration for JavaFX (shown in last part of video) and run from there.
 
-
-If the game runs successfully, you will see the interface below:
-
-
-<img src="res/9mm_cover.png" alt="9MM Game Screenshot"/>
+If the game runs successfully, you will see the game interface.
 
 ## Rules implemented so far
 1. All basic rules have been implemented.
@@ -42,5 +39,11 @@ where you saved your JavaFX SDK.
 
 This configuration can be found in the VM options of the Run/Debug Configurations.
 ![troubleshoot1.png](res%2Ftroubleshoot1.png)
+
+## Screenshots
+<img src="res/9mm_cover.png" alt="9MM Main menu Screenshot"/>
+<img src="res/ingame_screenshot.png" alt="9MM in game Screenshot"/>
+
+
 
 
