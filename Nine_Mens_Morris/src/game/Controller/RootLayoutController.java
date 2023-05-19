@@ -186,7 +186,7 @@ public class RootLayoutController {
                             iv.setId(db.getString());
                             board.setTokenPlacedPosition(placePosition);
                             gameManager.changePlayerTurn();
-                            System.out.println(gameManager.colorOnTurn() + "turn");
+                            System.out.println(gameManager.colorOnTurn() + " turn");
                             playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 
 
@@ -308,6 +308,7 @@ public class RootLayoutController {
     private void initWindow() {
         stage.getScene().getStylesheets().clear();
         stage.getScene().getStylesheets().add(Main.class.getResource("view/RootLayout.fxml").toExternalForm());
+        playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn"); //set label to player 1 turn
 
 //        if (gameManager.getGamePhase() == GamePhase.GAMEOVER) {
 //            gameBoardGrid.getChildren().remove(24);
@@ -327,10 +328,10 @@ public class RootLayoutController {
      * @param content
      * @param id
      *
-     * id = 0 -> new game
+     * id = 0 -> gameover: new game or exit to main menu
      * id = 1 -> quit game
      * id = 2 -> exit to main menu
-     *
+     * id = 3 -> new game from the game scene
      *
      */
 
@@ -349,6 +350,7 @@ public class RootLayoutController {
             if (alert.getResult() == btnYes) {
                 initWindow();
                 initialize();//initalize a new game
+                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 //                board.setNewGame(true);
             }
             else {
@@ -357,17 +359,26 @@ public class RootLayoutController {
                 sceneController.switchToMainMenuScene(this.stage);
             }
 
-        } else if (id == 1) {
+        } else if (id == 1) {   //handle quit game
             if (alert.getResult() == btnYes) {
                 Platform.exit();
             }
         }
-        else if (id == 2) {
+        else if (id == 2) { //handle exit to main menu
             if (alert.getResult() == btnYes) {
                 sceneController = new SceneController();
                 sceneController.switchToMainMenuScene(this.stage);
             }
         }
+        else if (id == 3){  //handle restart during game
+            if (alert.getResult() == btnYes) {
+                initWindow();
+                initialize();//initalize a new game
+                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+//                board.setNewGame(true);
+            }
+        }
+
 
     }
     public void handleGameover() throws IOException {
@@ -378,7 +389,7 @@ public class RootLayoutController {
      * Handles the action of the new game button.
      */
     public void handleNewGame() throws IOException {
-        gameDialog("New Game", "Are you sure you want to start a new game?", "All progress will be lost.", 0);
+        gameDialog("New Game", "Are you sure you want to start a new game?", "All progress will be lost.", 3);
     }
 
 
