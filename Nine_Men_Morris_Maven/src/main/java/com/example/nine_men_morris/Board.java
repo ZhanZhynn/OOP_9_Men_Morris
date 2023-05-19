@@ -1,7 +1,6 @@
-package game;
+package com.example.nine_men_morris;
 
 
-import game.Utils.Colour;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 

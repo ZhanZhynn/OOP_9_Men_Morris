@@ -1,11 +1,5 @@
-package game.Controller;
+package com.example.nine_men_morris;
 
-import game.Board;
-import game.GameManager;
-import game.Main;
-import game.Position;
-import game.Utils.Colour;
-import game.Utils.GamePhase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,6 +48,7 @@ public class RootLayoutController {
     private Label playerTurnLabel;      // label to display current player turn
     @FXML
     private MenuItem musicLabel;
+
     private SceneController sceneController;    //to handle exit to main menu from game scene
 
     /**
@@ -221,7 +216,6 @@ public class RootLayoutController {
                             Position position = getTilePosition(iv);
 
                             if (gameManager.removeToken(position)){//if token can be removed
-
                                 iv.setImage(null);
                                 iv.setId(null);
 
@@ -256,7 +250,6 @@ public class RootLayoutController {
 //                        gameManager.gameOver();
                     }
                     try {
-                        handleGameover();
                         handleGameover();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -295,6 +288,7 @@ public class RootLayoutController {
         }
         initGameManagerPropertyListeners();
 
+
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
         initTokenDrag(rightPocketGrid);
         initTokenDrag(gameBoardGrid);
@@ -308,7 +302,7 @@ public class RootLayoutController {
      */
     private void initWindow() {
         stage.getScene().getStylesheets().clear();
-        stage.getScene().getStylesheets().add(Main.class.getResource("view/RootLayout.fxml").toExternalForm());
+        stage.getScene().getStylesheets().add(Main.class.getResource("RootLayout.fxml").toExternalForm());
 
 //        if (gameManager.getGamePhase() == GamePhase.GAMEOVER) {
 //            gameBoardGrid.getChildren().remove(24);
@@ -372,7 +366,7 @@ public class RootLayoutController {
 
     }
     public void handleGameover() throws IOException {
-        gameDialog("Game Over", "Do you want to start a new game?", "All progress will be lost.", 0);
+        gameDialog("Game Over", "DO you wants to start a new game?", "All progress will be lost.", 0);
     }
 
     /**
@@ -413,6 +407,5 @@ public class RootLayoutController {
         }
 
     }
-
 
 }

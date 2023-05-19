@@ -2,14 +2,13 @@
 
 <!-- / @author Hee Zhan Zhynn -->
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.input.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<VBox prefHeight="750.0" prefWidth="500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.Controller.RootLayoutController">
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="750.0" prefWidth="500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.nine_men_morris.RootLayoutController">
 <children>
     <MenuBar>
         <menus>
@@ -34,7 +33,6 @@
                     <MenuItem fx:id="musicLabel" mnemonicParsing="false" onAction="#handleMusic" text="Mute Music" />
                 </items>
             </Menu>
-
         </menus>
     </MenuBar>
     <GridPane id="board-grid" fx:id="gameBoardGrid" prefHeight="500.0" prefWidth="500.0">
