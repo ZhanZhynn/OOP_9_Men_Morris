@@ -1,14 +1,9 @@
 # FIT3077_project
 
-## Documentation
+<details>
+    <summary>Sprint 1</summary>
 
-Please click on the link to the relevant sprint for information on accessing deliverables.
-
-[Sprint 1](#sprint-1) <br>
-[Sprint 2](#sprint-2) <br>
-[Sprint 3](#sprint-3)
-
-## Sprint 1 
+## Sprint 1
 
 Sprint 1 deliverables can be accessed in the Sprint 1 folder.
 
@@ -23,6 +18,11 @@ Inside the folder we have:
 3. FIT3077_Low_Fi.pdf - our final low fi design in pdf format
 4. Link to Figma of Low Fi design - https://www.figma.com/file/d08PxGS7458D1rGAokS7z6/FIT3077?node-id=0%3A1&t=nH7AiapkJT6YEYUc-1
 5. Link to LucidChart of Domain Model - https://lucid.app/lucidchart/c5b348e9-fff0-445e-91a6-2fbd5cc504a6/edit?viewport_loc=-573%2C0%2C2767%2C1283%2C0_0&invitationId=inv_1d200b7d-35f3-4467-9c7c-5faa16457771
+
+</details>
+
+<details>
+	<summary>Sprint 2</summary>
 
 ## Sprint 2
 
@@ -54,6 +54,7 @@ where you saved your JavaFX SDK.
 
 This configuration can be found in the VM options of the Run/Debug Configurations.
 <img src="Nine_Mens_Morris/res/troubleshoot1.png" alt="Troubleshoot1"/>
+</details>
 
 ## Sprint 3
 
@@ -63,4 +64,9 @@ Inside the Sprint 3 folder we have:
 
 **Submission Files (to be marked)**
 1. Sequence Diagrams folder - containing 5 sequence diagrams illustrating 5 distinct interactions in our program
-2. FIT3077_Sprint_3_Design_Rationale.pdf - our design rationale for Sprint 3
+2. 9mm_UML_Sprint3.pdf - our current uml class diagram, updated for Sprint 3
+3. FIT3077_Sprint_3_Design_Rationale.pdf - our design rationale for Sprint 3
+4. Releases folder - containing .bat file for Windows and .jar for MacOs
+
+Please refer to the readme in the Sprint 3 folder for more details on how to run our game.
+
