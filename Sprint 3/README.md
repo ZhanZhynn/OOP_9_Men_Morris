@@ -1,3 +1,5 @@
+Sprint 3 Demo: https://youtu.be/z88bg2aQVc4
+
 ## How to run the game
 1. Download the latest release from [here](https://git.infotech.monash.edu/fit3077-s1-2023/MA_Thursday4pm_Team6/project/-/tree/main/Sprint%203/Releases).
 
