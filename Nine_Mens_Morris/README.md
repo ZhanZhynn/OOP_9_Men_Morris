@@ -42,7 +42,9 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 
 ## Generate JAR executable  file
 
-1. Click on the **Maven** symbol in the toolbar at the right side of the screen.
+**Instructions**
+
+1. In IntelliJ, click on the **Maven** symbol in the toolbar at the right side of the screen.
 2. Click on **Lifecycle** to expand it, and then double click on **package**.
 3. Wait for Maven to build and package the JAR.
 4. After you get the "BUILD SUCCESS" message, go to the target folder to access the generated JAR file.
@@ -51,10 +53,7 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 
 **Video Tutorial**
 
-<figure class="video_container">
-  <iframe src="Nine_Mens_Morris/res/generate-jar-maven.mp4" frameborder="0" allowfullscreen="true"> 
-</iframe>
-</figure>
+![](Nine_Mens_Morris/res/generate-jar-maven.mp4)
 
 ## Screenshots
 <img src="res/9mm_cover.png" alt="9MM Main menu Screenshot"/>
