@@ -195,7 +195,6 @@ public class GameManager {
                     return true;
                 }
             }
-//            return board.validateTokenPlacement(newPosition);
             return false;
         }
         return true;

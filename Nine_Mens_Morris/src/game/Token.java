@@ -80,8 +80,4 @@ public class Token {
         }
     }
 
-    public void selfMillIdReset(){
-        this.millId = new int[]{0,0};
-    }
-
 }
