@@ -10,3 +10,6 @@
 
 ## Rules implemented so far
 1. All basic rules have been implemented.
+
+## Source code
+Source code and instruction to compile the project can be found [here](https://git.infotech.monash.edu/fit3077-s1-2023/MA_Thursday4pm_Team6/project/-/tree/main/Nine_Mens_Morris).
