@@ -52,6 +52,12 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * This method is used to start the game and initialise the game UI.
+     *  Game is initialise to the Main Menu scene
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -64,7 +70,6 @@ public class Main extends Application {
 //        stage.setScene(scene);
 //        stage.setTitle("JavaFX20");
 //        stage.show();
-
 
         try {
 
@@ -87,16 +92,10 @@ public class Main extends Application {
                 }
             });
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("view/MainMenu.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("view/MainMenu.fxml")));    //launch game in main menu scene
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
-
-
-
-
-
-
 
 
 //            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/RootLayout.fxml"));

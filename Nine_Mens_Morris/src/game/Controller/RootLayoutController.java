@@ -192,12 +192,12 @@ public class RootLayoutController {
 
                             gameManager.updateMillStatus(placePosition);
 
-                            if (gameManager.isMill()) {
+                            if (gameManager.isMill()) { //MILL FORMED
                                 //update label
                                 playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
                             }
-
                             event.setDropCompleted(true);
+
                         } else {
                             System.out.print("CANNOT PLACE");
                             playerTurnLabel.setText("Token cannot be placed here");
@@ -210,6 +210,11 @@ public class RootLayoutController {
     }
 
 
+    /**
+     * Checks if the opponent's token clicked by the current player can be removed.
+     * Tokens can only be removed if it is not part of a mill.
+     *
+     */
     private void removeTileMill() {
         for (ImageView iv : boardGridChildren) {
             iv.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -239,7 +244,7 @@ public class RootLayoutController {
                         }
                     }
                 }
-                //check win
+                //check win after the token is removed, win if opponent has less than 3 tokens
                 if (gameManager.checkWin() > 0){
                     System.out.println("WIN");
                     gameManager.setGamePhase(GamePhase.GAMEOVER);
@@ -255,7 +260,7 @@ public class RootLayoutController {
 
 //                        gameManager.gameOver();
                     }
-                    try {
+                    try { //after game over, prompt user to play again or quit
                         handleGameover();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -381,6 +386,10 @@ public class RootLayoutController {
 
 
     }
+
+    /**
+     * Handles the action of the game over button.
+     */
     public void handleGameover() throws IOException {
         gameDialog("Game Over", "Do you want to start a new game?", "All progress will be lost.", 0);
     }
@@ -394,7 +403,7 @@ public class RootLayoutController {
 
 
     /**
-     * Handles the action of the new game button.
+     * Handles the action of closing the game.
      */
     public void handleClose() throws IOException {
         gameDialog("Quit Game", "Are you sure you want to quit?", "All progress will be lost.", 1);
@@ -407,6 +416,10 @@ public class RootLayoutController {
         gameDialog("Exit to Main Menu", "Are you sure you want to quit?", "All progress will be lost.", 2);
     }
 
+
+    /**
+     * Handles the action of the music button. To mute or unmute the music in the game scene.
+     */
     public void handleMusic(){
         if (Main.mediaPlayer.isMute()){
             musicLabel.setText("Play Music");
