@@ -25,7 +25,7 @@ public class Board {
 
     private Map<Integer, List<Token>> millSets;
 
-    private int millId;
+    private int millId; // Mill id is used to identify the mill formation
 
 
     /**
@@ -92,10 +92,19 @@ public class Board {
         return tokenPlacedPosition;
     }
 
+    /**
+     *
+     * @param tokenPlacedPosition
+     */
     public void setTokenPlacedPosition(Position tokenPlacedPosition) {
         this.tokenPlacedPosition.set(tokenPlacedPosition);
     }
 
+    /**
+     * MillId is used to identify the mill formations on the board. Mill id are always unique and increasing.
+     * It it used to determine the tokens that are part of the mill.
+     *
+     */
     public void increaseMillId() {
         this.millId = this.millId + 1;
     }
@@ -139,6 +148,11 @@ public class Board {
 //        return false;
 //    }
 
+    /**
+     * This method is used to validate whether a token can be placed at the new position from the current position
+     *
+     * @param position the position on the board where the token is to be placed
+     */
     public List<Position> getValidPositions(Position position) {
         Integer p1 = boardPositions.get(position);
         List<Position> validPositions = new ArrayList<>();
@@ -220,7 +234,7 @@ public class Board {
     }
 
     /**
-     * Returns neighbouring postions where a mill is possible
+     * Returns neighbouring positions where a mill is possible
      *
      * @param newPosition the position on the board where the token is to be placed
      */
@@ -390,6 +404,12 @@ public class Board {
 
 
     //https://stackoverflow.com/questions/1383797/java-hashmap-how-to-get-key-from-value
+    /**
+     * Method to get the key from a value in a hashmap
+     *
+     * @param map the hashmap
+     * @param value the value to be searched for
+     */
     public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
         for (Map.Entry<T, E> entry : map.entrySet()) {
             if (Objects.equals(value, entry.getValue())) {

@@ -55,14 +55,25 @@ public class GameManager {
     }
 
 
+    /**
+     * * This method is used to check if a mill is formed.
+     * @return
+     */
     public boolean isMill() {
         return isMill;
     }
 
+    /**
+     * This method is used to set if a mill is formed.
+     * @param mill
+     */
     public void setMill(boolean mill) {
         isMill = mill;
     }
 
+    /**
+     * This method is used to start the game.
+     */
     public void startGame() {
         player1 = new HumanPlayer("Player 1", Colour.BLACK);
         player2 = new HumanPlayer("Player 2", Colour.WHITE);
@@ -73,11 +84,20 @@ public class GameManager {
 
     }
 
-
+    /**
+     * This method is used to get the current game phase.
+     *
+     * gamePhase: PLACEMENT, MOVEMENT, GAMEOVER
+     */
     public GamePhase getGamePhase() {
         return gamePhase;
     }
 
+    /**
+     * This method is used to set the current game phase.
+     *
+     * gamePhase: PLACEMENT, MOVEMENT, GAMEOVER
+     */
     public void setGamePhase(GamePhase gamephase) {
         this.gamePhase = gamePhase;
     }
@@ -110,6 +130,10 @@ public class GameManager {
         }
     }
 
+    /**
+     * This method is used when the game is over to deactivate the player turn and set the game phase to GAMEOVER.
+     * @return
+     */
     public void gameOver() {
         gamePhase = GamePhase.GAMEOVER;
         player1.deactivateTurn();
@@ -124,6 +148,9 @@ public class GameManager {
         return player1.isTurn() ? player1.getColour() : player2.getColour();
     }
 
+    /**
+     * This method is used to get the colour of the player whose turn it is not.
+     */
     public Colour isOtherTurn(){
         return player1.isTurn() ? player2.getColour() : player1.getColour();
     }
@@ -191,7 +218,6 @@ public class GameManager {
                     return true;
                 }
             }
-//            return board.validateTokenPlacement(newPosition);
             return false;
         }
         return true;
@@ -211,10 +237,20 @@ public class GameManager {
         return 0;
     }
 
+    /**
+     * This method is used to check if a mill is formed at the position.
+     * @param tokenPosition the position of the token to check.
+     * @return true if a mill is formed, false otherwise.
+     */
     public void updateMillStatus(Position tokenPosition) {
         isMill = board.checkIfMill(tokenPosition);
     }
 
+    /**
+     *  Remove the token at the position
+     * @param tokenPosition
+     * @return
+     */
     public boolean removeToken(Position tokenPosition) {
 
         if (board.removeToken(tokenPosition)) {
@@ -229,7 +265,12 @@ public class GameManager {
         return false;
     }
 
-
+    /**
+     * This method is used to check if any move is possible for the player.
+     * @return true if any move is possible, false otherwise.
+     *
+     * false will trigger a game draw.
+     */
     public boolean anyMovePossible() {
 
         if (player1.isTurn() && player1.getTotalPiecesOnBoard() == 3 && player1.getTotalPiecesToPlace() == 0 ||
