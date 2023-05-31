@@ -12,7 +12,7 @@
 	-fx-image: url(file:res/black_tile.png);
 }
 
-#right-tile-grid > .image-view {
+##right-tile-grid > .image-view {
 	-fx-image: url(file:res/white_tile.png);
 }
 
