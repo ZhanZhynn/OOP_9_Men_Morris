@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -24,15 +25,15 @@ import java.io.IOException;
 
 /**
  * @author Hee Zhan Zhynn
- *
- *        This class is the controller for the root layout. It handles the drag and drop functionality of the game.
- *
- *        The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
- *
- *        Reference:
- *          https://www.javatpoint.com/javafx-convenience-methods
- *          https://github.com/OmDharme/Chess---JavaFX
- *          https://github.com/zann1x/MerelsFX*
+ * <p>
+ * This class is the controller for the root layout. It handles the drag and drop functionality of the game.
+ * <p>
+ * The drag and drop functionality is implemented using the JavaFX Drag and Drop API.
+ * <p>
+ * Reference:
+ * https://www.javatpoint.com/javafx-convenience-methods
+ * https://github.com/OmDharme/Chess---JavaFX
+ * https://github.com/zann1x/MerelsFX*
  */
 
 public class RootLayoutController {
@@ -99,6 +100,11 @@ public class RootLayoutController {
 
             iv.setOnDragDetected(event -> { // MouseEvent
 
+
+                if (gameManager.colorOnTurn() == Colour.WHITE) {
+                    gameManager.changePlayerTurn();
+                    return;
+                }
                 if (iv.getImage() == null) {
                     return;
                 }
@@ -107,7 +113,7 @@ public class RootLayoutController {
                 }
 
                 //draw check
-                if(!gameManager.anyMovePossible() && gameManager.getGamePhase() != GamePhase.PLACEMENT){
+                if (!gameManager.anyMovePossible() && gameManager.getGamePhase() != GamePhase.PLACEMENT) {
                     System.out.println("NO MORE MOVESSSSSSS!!!!!");
                     playerTurnLabel.setText("Draw, no more moves available");
                     return;
@@ -197,7 +203,6 @@ public class RootLayoutController {
                                 playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
                             }
                             event.setDropCompleted(true);
-
                         } else {
                             System.out.print("CANNOT PLACE");
                             playerTurnLabel.setText("Token cannot be placed here");
@@ -205,6 +210,7 @@ public class RootLayoutController {
                     }
                 }
                 event.consume();
+                gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
             });
         }
     }
@@ -213,7 +219,6 @@ public class RootLayoutController {
     /**
      * Checks if the opponent's token clicked by the current player can be removed.
      * Tokens can only be removed if it is not part of a mill.
-     *
      */
     private void removeTileMill() {
         for (ImageView iv : boardGridChildren) {
@@ -221,11 +226,11 @@ public class RootLayoutController {
                 if (gameManager.isMill()) {
                     if (iv.getImage() != null && iv.getId() != null) {
                         System.out.println(gameManager.colorOnTurn());
-                        if(iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.BLACK ||
-                                iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE){
+                        if (iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.BLACK ||
+                                iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
                             Position position = getTilePosition(iv);
 
-                            if (gameManager.removeToken(position)){//if token can be removed
+                            if (gameManager.removeToken(position)) {//if token can be removed
 
                                 iv.setImage(null);
                                 iv.setId(null);
@@ -234,8 +239,7 @@ public class RootLayoutController {
                                 playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 
 
-                            }
-                            else{
+                            } else {
                                 System.out.println("TOKEN CANNOT BE REMOVED");
                                 //update label
                                 playerTurnLabel.setText("Part of mill, cannot remove token");
@@ -245,16 +249,15 @@ public class RootLayoutController {
                     }
                 }
                 //check win after the token is removed, win if opponent has less than 3 tokens
-                if (gameManager.checkWin() > 0){
+                if (gameManager.checkWin() > 0) {
                     System.out.println("WIN");
                     gameManager.setGamePhase(GamePhase.GAMEOVER);
 
-                    if (gameManager.checkWin() == 1){
+                    if (gameManager.checkWin() == 1) {
                         System.out.println("Player 1 WIN");
                         playerTurnLabel.setText("Player 1 WIN");
 //                        gameManager.gameOver();
-                    }
-                    else{
+                    } else {
                         System.out.println("Player 2 WIN");
                         playerTurnLabel.setText("Player 2 WIN");
 
@@ -274,14 +277,23 @@ public class RootLayoutController {
 
     /**
      * Initializes the listeners for the properties of the game manager.
-     *
      */
     private void initGameManagerPropertyListeners() {
-       board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+        final int[] count = {1};
+        board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
                 gameManager.placeToken(newPosition);
             } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
                 gameManager.moveToken(newPosition);
+            }
+        });
+        gameManager.player2TurnProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue) {
+                if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
+                    aiBasicPlacement(count[0]);
+                    count[0]++;
+                    gameManager.setPlayer2TurnProperty(false);
+                }
             }
         });
     }
@@ -331,13 +343,10 @@ public class RootLayoutController {
      * @param title
      * @param header
      * @param content
-     * @param id
-     *
-     * id = 0 -> gameover: new game or exit to main menu
-     * id = 1 -> quit game
-     * id = 2 -> exit to main menu
-     * id = 3 -> new game from the game scene
-     *
+     * @param id      id = 0 -> gameover: new game or exit to main menu
+     *                id = 1 -> quit game
+     *                id = 2 -> exit to main menu
+     *                id = 3 -> new game from the game scene
      */
 
     private void gameDialog(String title, String header, String content, int id) throws IOException {
@@ -357,8 +366,7 @@ public class RootLayoutController {
                 initialize();//initalize a new game
                 playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 //                board.setNewGame(true);
-            }
-            else {
+            } else {
                 //exit to main menu
                 sceneController = new SceneController();
                 sceneController.switchToMainMenuScene(this.stage);
@@ -368,14 +376,12 @@ public class RootLayoutController {
             if (alert.getResult() == btnYes) {
                 Platform.exit();
             }
-        }
-        else if (id == 2) { //handle exit to main menu
+        } else if (id == 2) { //handle exit to main menu
             if (alert.getResult() == btnYes) {
                 sceneController = new SceneController();
                 sceneController.switchToMainMenuScene(this.stage);
             }
-        }
-        else if (id == 3){  //handle restart during game
+        } else if (id == 3) {  //handle restart during game
             if (alert.getResult() == btnYes) {
                 initWindow();
                 initialize();//initalize a new game
@@ -420,15 +426,14 @@ public class RootLayoutController {
     /**
      * Handles the action of the music button. To mute or unmute the music in the game scene.
      */
-    public void handleMusic(){
-        if (Main.mediaPlayer.isMute()){
+    public void handleMusic() {
+        if (Main.mediaPlayer.isMute()) {
             musicLabel.setText("Play Music");
             Main.mediaPlayer.setMute(false);
             musicLabel.setText("Mute Music");
             //set menu item text
 
-        }
-        else{
+        } else {
             musicLabel.setText("Mute Music");
             Main.mediaPlayer.setMute(true);
             musicLabel.setText("Play Music");
@@ -438,4 +443,55 @@ public class RootLayoutController {
     }
 
 
+    //_____________________________________________________________
+    //AI TEST CODE
+
+    private void aiBasicPlacement(int count) {
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            System.out.println("testing");
+//        }
+        for (ImageView iv : boardGridChildren) {
+            Position position = getTilePosition(iv);
+            if (iv.getId() == null) {
+                iv.setImage(new Image("file:res/white_tile.png"));
+                iv.setId("wht" + Integer.toString(count));
+                board.setTokenPlacedPosition(position);
+                gameManager.changePlayerTurn();
+                System.out.println(gameManager.colorOnTurn() + " turn");
+                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+
+
+                gameManager.updateMillStatus(position);
+
+                if (gameManager.isMill()) { //MILL FORMED
+                    //update label
+                    playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
+                    aiRemoveToken();
+                }
+                return;
+            }
+        }
+    }
+
+
+    private void aiRemoveToken() {
+        for (ImageView iv : boardGridChildren) {
+            if (iv.getId() != null) {
+                if (iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.BLACK) {
+                    Position position = getTilePosition(iv);
+                    if (gameManager.removeToken(position)) {//if token can be removed
+                        iv.setImage(null);
+                        iv.setId(null);
+                        gameManager.setMill(false);
+                        playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+                        break;
+                    }
+                }
+            }
+
+
+        }
+    }
 }

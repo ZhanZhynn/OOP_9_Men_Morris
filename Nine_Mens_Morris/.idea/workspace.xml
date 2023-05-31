@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0d6c5ba4-bbb4-44ec-8a54-bba97aac303c" name="Changes" comment="Fix Jar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Controller/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Controller/RootLayoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GameManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="project" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;$JavaFX20$&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\prikk\Downloads\openjfx-17.0.7_windows-x64_bin-sdk\javafx-sdk-17.0.7\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -309,5 +311,12 @@
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Fix Jar" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix Jar" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="game.Player.HumanPlayer" memberName="isTurn" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

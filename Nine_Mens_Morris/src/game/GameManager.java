@@ -3,6 +3,8 @@ package game;
 import game.Player.HumanPlayer;
 import game.Utils.Colour;
 import game.Utils.GamePhase;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.List;
 
@@ -28,9 +30,11 @@ public class GameManager {
 
     private boolean isMill;
 
+   private BooleanProperty player2TurnProperty;
+
     public GameManager() {
         board = new Board();
-
+        player2TurnProperty = new SimpleBooleanProperty();
         startGame();
     }
 
@@ -73,6 +77,18 @@ public class GameManager {
      */
     public void setMill(boolean mill) {
         isMill = mill;
+    }
+
+    public boolean getPlayer2TurnProperty() {
+        return player2TurnProperty.get();
+    }
+
+    public BooleanProperty player2TurnProperty() {
+        return player2TurnProperty;
+    }
+
+    public void setPlayer2TurnProperty(boolean player2TurnProperty) {
+        this.player2TurnProperty.set(player2TurnProperty);
     }
 
     /**
