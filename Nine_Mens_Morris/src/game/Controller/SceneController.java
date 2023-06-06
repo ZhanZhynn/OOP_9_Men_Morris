@@ -73,7 +73,20 @@ public class SceneController {
     }
 
     /**
-     * Switch to game scene from the main menu
+     * Switch to game mode selection screen from the main menu
+     * @param event
+     * @throws IOException
+     */
+    public void switchToModeSelect(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Main.class.getResource("View/GameMode.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Switch to game scene from the mode select screen
      * @param event
      * @throws IOException
      */

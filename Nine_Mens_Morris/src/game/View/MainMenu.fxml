@@ -12,7 +12,7 @@
 <!--            <Image url="../res/game_title.png" />-->
 <!--         </image>-->
 <!--      </ImageView>-->
-      <Button layoutX="150.0" layoutY="406.0" mnemonicParsing="false" onAction="#switchToGameScene" style="-fx-min-width: 200; -fx-font-size: 20;" stylesheets="@button.css" text="Start">
+      <Button layoutX="150.0" layoutY="406.0" mnemonicParsing="false" onAction="#switchToModeSelect" style="-fx-min-width: 200; -fx-font-size: 20;" stylesheets="@button.css" text="Start">
          <font>
             <Font size="20.0" />
          </font>
