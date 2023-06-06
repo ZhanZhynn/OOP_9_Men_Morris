@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Hee Zhan Zhynn
@@ -212,7 +213,9 @@ public class RootLayoutController {
                     }
                 }
                 event.consume();
-                gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());  //AI auto place
+                if (!gameManager.isMill()) {
+                    gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
+                }  //AI auto place
             });
         }
     }
@@ -272,7 +275,9 @@ public class RootLayoutController {
                     }
                 }
                 event.consume();
-
+                System.out.println("HEREEE");
+                System.out.println(gameManager.getPlayer2().isTurn());
+                gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
             });
         }
     }
@@ -294,6 +299,9 @@ public class RootLayoutController {
                 if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
                     aiBasicPlacement(count[0]);
                     count[0]++;
+                    gameManager.setPlayer2TurnProperty(false);
+                } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT && !gameManager.isMill()) {
+                    aiMoveToken();
                     gameManager.setPlayer2TurnProperty(false);
                 }
             }
@@ -317,7 +325,7 @@ public class RootLayoutController {
         }
 
         //set image for rightPocketGrid, cannot use the application.css file for AI, else it won't remove the token
-        for (Node k : rightPocketGrid.getChildren()){
+        for (Node k : rightPocketGrid.getChildren()) {
             ((ImageView) k).setImage(new Image("file:res/white_tile.png"));
         }
 
@@ -402,8 +410,6 @@ public class RootLayoutController {
 //                board.setNewGame(true);
             }
         }
-
-
     }
 
     /**
@@ -496,14 +502,10 @@ public class RootLayoutController {
                     playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
                     aiRemoveToken();
                 }
-
                 return;
             }
         }
-
-
     }
-
 
     private void aiRemoveToken() {
         for (ImageView iv : boardGridChildren) {
@@ -519,8 +521,50 @@ public class RootLayoutController {
                     }
                 }
             }
-
-
         }
     }
+
+    private void aiMoveToken() {
+        for (ImageView iv : boardGridChildren) {
+            System.out.println(iv);
+            if (iv.getId() != null) {
+                if (iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
+                    Position currentPosition = getTilePosition(iv);
+                    List<Position> possiblePositions = board.getValidPositions(currentPosition);
+                    for (Position p : possiblePositions) {
+                        for (ImageView newIv : boardGridChildren) {
+                            if (newIv.getId() == null) {
+                                Position newPosition = getTilePosition(newIv);
+                                if (newPosition.equals(p)) {
+
+                                    newIv.setId(iv.getId());
+                                    newIv.setImage(iv.getImage());
+
+                                    iv.setId(null);
+                                    iv.setImage(null);
+                                    board.setOldPosition(currentPosition);
+                                    board.setTokenPlacedPosition(newPosition);
+                                    gameManager.changePlayerTurn();
+                                    System.out.println(gameManager.colorOnTurn() + " turn");
+                                    playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+
+                                    gameManager.updateMillStatus(newPosition);
+
+                                    if (gameManager.isMill()) { //MILL FORMED
+                                        //update label
+                                        playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
+                                        aiRemoveToken();
+                                    }
+
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 }

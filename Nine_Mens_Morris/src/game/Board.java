@@ -152,7 +152,7 @@ public class Board {
     /**
      * This method is used to validate whether a token can be placed at the new position from the current position
      *
-     * @param position the position on the board where the token is to be placed
+     * @param position the position on the board where the token is at
      */
     public List<Position> getValidPositions(Position position) {
         Integer p1 = boardPositions.get(position);
