@@ -237,6 +237,9 @@ public class RootLayoutController {
                                 gameManager.setMill(false);
                                 playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
                                 flag.set(true);
+                                resetImagesOnRemovableTiles();
+
+
 
                             } else {
                                 System.out.println("TOKEN CANNOT BE REMOVED");
@@ -261,6 +264,55 @@ public class RootLayoutController {
         }
     }
 
+    private void resetImagesOnRemovableTiles() {
+        for (ImageView iv : boardGridChildren) {
+            if (iv.getId() != null) {
+                if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("blk")) {
+                    iv.setImage(new Image("file:res/black_tile.png"));
+                } else if (gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("wht")) {
+                    iv.setImage(new Image("file:res/white_tile.png"));
+                }
+            }
+        }
+    }
+
+    public void putImagesOnRemovableTiles(){
+        for (ImageView iv : boardGridChildren) {
+                if (gameManager.isMill()) {
+                    System.out.println("putImagesOnRemovableTiles");
+                    if (iv.getImage() != null && iv.getId() != null) {
+                        System.out.println(gameManager.colorOnTurn());
+                        if (iv.getId().contains("blk") && gameManager.colorOnTurn() == Colour.BLACK ||
+                                iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
+                            Position position = getTilePosition(iv);
+
+                            if (position != null && board.canBeRemoved1(position)) {//if token can be removed
+                                System.out.println("removing token image");
+//                                iv.setImage(null);
+                                if (iv.getId().contains("blk") && this.rootGameMode == GameMode.HUMAN) {
+                                    iv.setImage(new Image("file:res/black_tile_removable.png"));
+                                } else if (iv.getId().contains("wht")) {
+                                    iv.setImage(new Image("file:res/white_tile_removable.png"));
+                                }
+
+//                                gameManager.setMill(false);
+//                                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+
+                            } else {
+                                System.out.println("TOKEN CANNOT BE REMOVED");
+                                //update label
+//                                playerTurnLabel.setText("Part of mill, cannot remove token");
+                            }
+
+                        }
+                    }
+                }
+
+        }
+
+    }
+
+
     /**
      * Initializes the listeners for the properties of the game manager.
      */
@@ -268,6 +320,8 @@ public class RootLayoutController {
 
         final int[] count = {1};
         board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
+            System.out.println("attempt to form mill");
+            putImagesOnRemovableTiles();
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
                 gameManager.placeToken(newPosition);
             } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT) {
@@ -275,7 +329,7 @@ public class RootLayoutController {
             }
         });
         gameManager.player2TurnProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue && this.rootGameMode == GameMode.COMPUTER) {
+            if (newValue && this.rootGameMode == GameMode.COMPUTER) {   //play against AI mode
                 if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
                     aiBasicPlacement2(count[0]);
                     count[0]++;
@@ -624,6 +678,7 @@ public class RootLayoutController {
 
         if (gameManager.isMill()) { //MILL FORMED
             //update label
+            putImagesOnRemovableTiles();
             playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
         }
     }

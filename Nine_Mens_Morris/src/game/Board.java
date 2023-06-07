@@ -367,8 +367,27 @@ public class Board {
                 return t.getIsPartOfMillCount() == 0;
             }
         }
+//        canBeRemoved1(tokenPosition);
         // for cases where force removal is enforced
         reduceIsMillCount(occupiedPosition.get(tokenPosition));
+        return true;
+
+    }
+
+
+    public boolean canBeRemoved1(Position tokenPosition) {
+        //loop for checking if any token can be removed, edge case where there exist some token that can be removed
+        for (Token token : occupiedPosition.values()){
+            System.out.println(token);
+            if (occupiedPosition.get(tokenPosition)==null){
+                return false;
+            }
+            if (token.getIsPartOfMillCount()==0 && token.getColour() == occupiedPosition.get(tokenPosition).getColour())  {
+                Token t = occupiedPosition.get(tokenPosition);
+                return t.getIsPartOfMillCount() == 0;
+            }
+        }
+
         return true;
 
     }
