@@ -44,7 +44,7 @@ public class SceneController {
 
         scene = new Scene(root);
         stageFrom.setScene(scene);
-        stage.setTitle("Nine Men Moris");
+//        stage.setTitle("Nine Men Moris");
         stageFrom.getIcons().add(new Image("file:res/icon.png"));
         stageFrom.show();
     }

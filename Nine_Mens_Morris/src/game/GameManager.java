@@ -125,23 +125,6 @@ public class GameManager {
         this.gamePhase = gamePhase;
     }
 
-    /**
-     * This method is used to get the current game mode.
-     *
-     * gameMode: HUMAN, COMPUTER
-     */
-    public GameMode getGameMode() {
-        return gameMode;
-    }
-
-    /**
-     * This method is used to set the current game mode.
-     *
-     * gameMode: HUMAN, COMPUTER
-     */
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
-    }
 
     /**
      * Getter to get token numbers of tokens on the board.

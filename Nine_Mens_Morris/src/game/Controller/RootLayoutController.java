@@ -47,6 +47,8 @@ public class RootLayoutController {
     private Board board;
     private GameManager gameManager;
 
+    private GameMode rootGameMode;
+
     private ObservableList<ImageView> boardGridChildren = FXCollections.observableArrayList();
 
     private ObservableList<ImageView> rightPocketGridChildren = FXCollections.observableArrayList();
@@ -100,6 +102,7 @@ public class RootLayoutController {
      * @param grid to be allowed to drag from
      */
     private void initTokenDrag(GridPane grid) {
+
 
         for (Node i : grid.getChildren()) {
             ImageView iv = (ImageView) i;
@@ -262,6 +265,7 @@ public class RootLayoutController {
      * Initializes the listeners for the properties of the game manager.
      */
     private void initGameManagerPropertyListeners() {
+
         final int[] count = {1};
         board.tokenPlacedPositionProperty().addListener((observableValue, oldPosition, newPosition) -> {
             if (newPosition != null && gameManager.getGamePhase() == GamePhase.PLACEMENT) {
@@ -271,7 +275,7 @@ public class RootLayoutController {
             }
         });
         gameManager.player2TurnProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue) {
+            if (newValue && this.rootGameMode == GameMode.COMPUTER) {
                 if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
                     aiBasicPlacement2(count[0]);
                     count[0]++;
@@ -292,9 +296,12 @@ public class RootLayoutController {
     private void initialize() {
         gameManager = new GameManager();
         board = gameManager.getBoard();
+        boardGridChildren = FXCollections.observableArrayList();    //reinitialize the list for new game
+//        rightPocketGridChildren = FXCollections.observableArrayList();
         for (Node i : gameBoardGrid.getChildren()) {
             boardGridChildren.add((ImageView) i);
         }
+
 
         for (Node j : rightPocketGrid.getChildren()) {
             rightPocketGridChildren.add((ImageView) j);
@@ -308,6 +315,9 @@ public class RootLayoutController {
         initGameManagerPropertyListeners();
 
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
+//        if (gameManager.getGameMode() == GameMode.HUMAN) {
+//            initTokenDrag(rightPocketGrid);
+//        }
         initTokenDrag(rightPocketGrid);
         initTokenDrag(gameBoardGrid);
         initTokenDrop(gameBoardGrid);
@@ -358,9 +368,10 @@ public class RootLayoutController {
         alert.getButtonTypes().addAll(btnYes, btnNo);
         alert.showAndWait();
         if (id == 0) {
-            if (alert.getResult() == btnYes) {
+            if (alert.getResult() == btnYes) { //handle new game
                 initWindow();
                 initialize();//initalize a new game
+//
                 playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 //                board.setNewGame(true);
             } else {
@@ -382,6 +393,7 @@ public class RootLayoutController {
             if (alert.getResult() == btnYes) {
                 initWindow();
                 initialize();//initalize a new game
+
                 playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 //                board.setNewGame(true);
             }
@@ -643,9 +655,9 @@ public class RootLayoutController {
 
     public void setGameMode(int mode){
         if (mode == 0){
-            gameManager.setGameMode(GameMode.HUMAN);
+            this.rootGameMode = GameMode.HUMAN;
         } else{
-            gameManager.setGameMode(GameMode.COMPUTER);
+            this.rootGameMode = GameMode.COMPUTER;
         }
     }
 
