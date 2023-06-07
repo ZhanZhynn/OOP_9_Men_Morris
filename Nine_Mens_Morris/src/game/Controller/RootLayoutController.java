@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Hee Zhan Zhynn
@@ -194,17 +195,9 @@ public class RootLayoutController {
                             iv.setImage(db.getImage());
                             iv.setId(db.getString());
                             board.setTokenPlacedPosition(placePosition);
-                            gameManager.changePlayerTurn();
-                            System.out.println(gameManager.colorOnTurn() + " turn");
-                            playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 
+                            afterTokenPlacementBoardUpdates(placePosition);
 
-                            gameManager.updateMillStatus(placePosition);
-
-                            if (gameManager.isMill()) { //MILL FORMED
-                                //update label
-                                playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
-                            }
                             event.setDropCompleted(true);
                         } else {
                             System.out.print("CANNOT PLACE");
@@ -214,8 +207,8 @@ public class RootLayoutController {
                 }
                 event.consume();
                 if (!gameManager.isMill()) {
-                    gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
-                }  //AI auto place
+                    gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn()); //AI auto place
+                }
             });
         }
     }
@@ -254,29 +247,11 @@ public class RootLayoutController {
                     }
                 }
                 //check win after the token is removed, win if opponent has less than 3 tokens
-                if (gameManager.checkWin() > 0) {
-                    System.out.println("WIN");
-                    gameManager.setGamePhase(GamePhase.GAMEOVER);
-
-                    if (gameManager.checkWin() == 1) {
-                        System.out.println("Player 1 WIN");
-                        playerTurnLabel.setText("Player 1 WIN");
-//                        gameManager.gameOver();
-                    } else {
-                        System.out.println("Player 2 WIN");
-                        playerTurnLabel.setText("Player 2 WIN");
-
-//                        gameManager.gameOver();
-                    }
-                    try { //after game over, prompt user to play again or quit
-                        handleGameover();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+                gameWinCheck();
                 event.consume();
-                System.out.println("HEREEE");
-                System.out.println(gameManager.getPlayer2().isTurn());
+
+                //Set to false, then true to trigger auto event
+                gameManager.setPlayer2TurnProperty(false);
                 gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
             });
         }
@@ -297,7 +272,7 @@ public class RootLayoutController {
         gameManager.player2TurnProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue) {
                 if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
-                    aiBasicPlacement(count[0]);
+                    aiBasicPlacement2(count[0]);
                     count[0]++;
                     gameManager.setPlayer2TurnProperty(false);
                 } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT && !gameManager.isMill()) {
@@ -461,34 +436,22 @@ public class RootLayoutController {
 
     }
 
-
     //_____________________________________________________________
     //AI TEST CODE
 
     private void aiBasicPlacement(int count) {
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            System.out.println("testing");
-//        }
         for (ImageView iv : boardGridChildren) {
             Position position = getTilePosition(iv);
             if (iv.getId() == null) {
                 iv.setImage(new Image("file:res/white_tile.png"));
                 iv.setId("wht" + Integer.toString(count));
                 board.setTokenPlacedPosition(position);
-                gameManager.changePlayerTurn();
-                System.out.println(gameManager.colorOnTurn() + " turn");
-                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
-
-                gameManager.updateMillStatus(position);
 
                 //remove token from rightpocketgrid after it is placed
                 for (ImageView iv2 : rightPocketGridChildren) {
                     if (iv2.getId() != null) {
                         iv2.getImage();
                         if (iv2.getId().contains("wht")) {
-                            System.out.println("helloooooo");
                             iv2.setImage(null);
                             iv2.setId(null);
 
@@ -496,12 +459,12 @@ public class RootLayoutController {
                         }
                     }
                 }
+                afterTokenPlacementBoardUpdates(position);
 
-                if (gameManager.isMill()) { //MILL FORMED
-                    //update label
-                    playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
+                if (gameManager.isMill()) {
                     aiRemoveToken();
                 }
+
                 return;
             }
         }
@@ -517,6 +480,7 @@ public class RootLayoutController {
                         iv.setId(null);
                         gameManager.setMill(false);
                         playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+                        gameWinCheck();
                         break;
                     }
                 }
@@ -542,17 +506,13 @@ public class RootLayoutController {
 
                                     iv.setId(null);
                                     iv.setImage(null);
+
                                     board.setOldPosition(currentPosition);
                                     board.setTokenPlacedPosition(newPosition);
-                                    gameManager.changePlayerTurn();
-                                    System.out.println(gameManager.colorOnTurn() + " turn");
-                                    playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
 
-                                    gameManager.updateMillStatus(newPosition);
+                                    afterTokenPlacementBoardUpdates(newPosition);
 
-                                    if (gameManager.isMill()) { //MILL FORMED
-                                        //update label
-                                        playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
+                                    if (gameManager.isMill()) {
                                         aiRemoveToken();
                                     }
 
@@ -562,6 +522,79 @@ public class RootLayoutController {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void aiBasicPlacement2(int count) {
+        Random random = new Random();
+
+        while (true){
+            int num = random.nextInt(24);
+            ImageView iv = boardGridChildren.get(num);
+
+            Position position = getTilePosition(iv);
+            if (iv.getId() == null) {
+                iv.setImage(new Image("file:res/white_tile.png"));
+                iv.setId("wht" + Integer.toString(count));
+                board.setTokenPlacedPosition(position);
+
+                //remove token from rightpocketgrid after it is placed
+                for (ImageView iv2 : rightPocketGridChildren) {
+                    if (iv2.getId() != null) {
+                        iv2.getImage();
+                        if (iv2.getId().contains("wht")) {
+                            iv2.setImage(null);
+                            iv2.setId(null);
+
+                            break;
+                        }
+                    }
+                }
+                afterTokenPlacementBoardUpdates(position);
+
+                if (gameManager.isMill()) {
+                    aiRemoveToken();
+                }
+
+                return;
+            }
+        }
+    }
+
+    public void afterTokenPlacementBoardUpdates(Position position){
+        gameManager.changePlayerTurn();
+        System.out.println(gameManager.colorOnTurn() + " turn");
+        playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
+
+        gameManager.updateMillStatus(position);
+
+        if (gameManager.isMill()) { //MILL FORMED
+            //update label
+            playerTurnLabel.setText("Mill formed, " + gameManager.isOtherTurn() + " can remove opponent token");
+        }
+    }
+
+    public void gameWinCheck(){
+
+        if (gameManager.checkWin() > 0) {
+            System.out.println("WIN");
+            gameManager.setGamePhase(GamePhase.GAMEOVER);
+
+            if (gameManager.checkWin() == 1) {
+                System.out.println("Player 1 WIN");
+                playerTurnLabel.setText("Player 1 WIN");
+//                        gameManager.gameOver();
+            } else {
+                System.out.println("Player 2 WIN");
+                playerTurnLabel.setText("Player 2 WIN");
+
+//                        gameManager.gameOver();
+            }
+            try { //after game over, prompt user to play again or quit
+                handleGameover();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
