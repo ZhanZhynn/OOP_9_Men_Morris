@@ -95,6 +95,8 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("View/MainMenu.fxml")));    //launch game in main menu scene
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setTitle("Nine Men Moris");
+            primaryStage.getIcons().add(new Image("file:res/icon.png"));
             primaryStage.show();
 
 
