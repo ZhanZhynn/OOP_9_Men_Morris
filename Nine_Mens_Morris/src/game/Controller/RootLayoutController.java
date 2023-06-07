@@ -5,6 +5,7 @@ import game.GameManager;
 import game.Main;
 import game.Position;
 import game.Utils.Colour;
+import game.Utils.GameMode;
 import game.Utils.GamePhase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -637,6 +638,14 @@ public class RootLayoutController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public void setGameMode(int mode){
+        if (mode == 0){
+            gameManager.setGameMode(GameMode.HUMAN);
+        } else{
+            gameManager.setGameMode(GameMode.COMPUTER);
         }
     }
 
