@@ -297,11 +297,10 @@ public class RootLayoutController {
         gameManager = new GameManager();
         board = gameManager.getBoard();
         boardGridChildren = FXCollections.observableArrayList();    //reinitialize the list for new game
-//        rightPocketGridChildren = FXCollections.observableArrayList();
+        rightPocketGridChildren = FXCollections.observableArrayList();
         for (Node i : gameBoardGrid.getChildren()) {
             boardGridChildren.add((ImageView) i);
         }
-
 
         for (Node j : rightPocketGrid.getChildren()) {
             rightPocketGridChildren.add((ImageView) j);
@@ -315,7 +314,7 @@ public class RootLayoutController {
         initGameManagerPropertyListeners();
 
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
-//        if (gameManager.getGameMode() == GameMode.HUMAN) {
+//        if (this.rootGameMode == GameMode.HUMAN) {
 //            initTokenDrag(rightPocketGrid);
 //        }
         initTokenDrag(rightPocketGrid);
@@ -554,11 +553,11 @@ public class RootLayoutController {
 
                 //remove token from rightpocketgrid after it is placed
                 for (ImageView iv2 : rightPocketGridChildren) {
-                    if (iv2.getId() != null) {
+                    if (iv2.getImage() != null) {
                         iv2.getImage();
                         if (iv2.getId().contains("wht")) {
                             iv2.setImage(null);
-                            iv2.setId(null);
+//                            iv2.setId(null);
 
                             break;
                         }
