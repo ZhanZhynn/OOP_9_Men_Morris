@@ -656,6 +656,10 @@ public class RootLayoutController {
                         for (ImageView newIv : boardGridChildren) {
                             if (newIv.getId() == null) { //find positions that are empty
                                 Position newPosition = getTilePosition(newIv);
+
+                                if (gameManager.getPlayer2().getTotalPiecesOnBoard() == 3) {
+                                    p = newPosition;
+                                }
                                 if (newPosition.equals(p)) { //if possible position = empty
 
                                     //transfer token
