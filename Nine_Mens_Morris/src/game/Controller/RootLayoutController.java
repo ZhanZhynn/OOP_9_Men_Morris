@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Hee Zhan Zhynn
@@ -104,11 +105,6 @@ public class RootLayoutController {
 
             iv.setOnDragDetected(event -> { // MouseEvent
 
-
-                if (gameManager.colorOnTurn() == Colour.WHITE) {
-                    gameManager.changePlayerTurn();
-                    return;
-                }
                 if (iv.getImage() == null) {
                     return;
                 }
@@ -219,6 +215,7 @@ public class RootLayoutController {
      * Tokens can only be removed if it is not part of a mill.
      */
     private void removeTileMill() {
+        AtomicBoolean flag = new AtomicBoolean(false);
         for (ImageView iv : boardGridChildren) {
             iv.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (gameManager.isMill()) {
@@ -235,7 +232,7 @@ public class RootLayoutController {
 
                                 gameManager.setMill(false);
                                 playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
-
+                                flag.set(true);
 
                             } else {
                                 System.out.println("TOKEN CANNOT BE REMOVED");
@@ -250,9 +247,12 @@ public class RootLayoutController {
                 gameWinCheck();
                 event.consume();
 
-                //Set to false, then true to trigger auto event
-                gameManager.setPlayer2TurnProperty(false);
-                gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
+                if (flag.get()) {
+                    //Set to false, then true to trigger auto event
+                    gameManager.setPlayer2TurnProperty(false);
+                    gameManager.setPlayer2TurnProperty(gameManager.getPlayer2().isTurn());
+                    flag.set(false);
+                }
             });
         }
     }
@@ -276,7 +276,7 @@ public class RootLayoutController {
                     count[0]++;
                     gameManager.setPlayer2TurnProperty(false);
                 } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT && !gameManager.isMill()) {
-                    aiMoveToken();
+                    aiMoveToken2();
                     gameManager.setPlayer2TurnProperty(false);
                 }
             }
@@ -529,7 +529,7 @@ public class RootLayoutController {
     private void aiBasicPlacement2(int count) {
         Random random = new Random();
 
-        while (true){
+        while (true) {
             int num = random.nextInt(24);
             ImageView iv = boardGridChildren.get(num);
 
@@ -562,7 +562,48 @@ public class RootLayoutController {
         }
     }
 
-    public void afterTokenPlacementBoardUpdates(Position position){
+    private void aiMoveToken2() {
+        Random random = new Random();
+
+        while (true) {
+            int num = random.nextInt(24);
+            ImageView iv = boardGridChildren.get(num);
+            if (iv.getId() != null) {
+                if (iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
+                    Position currentPosition = getTilePosition(iv);
+                    List<Position> possiblePositions = board.getValidPositions(currentPosition);
+                    for (Position p : possiblePositions) {
+                        for (ImageView newIv : boardGridChildren) {
+                            if (newIv.getId() == null) {
+                                Position newPosition = getTilePosition(newIv);
+                                if (newPosition.equals(p)) {
+
+                                    newIv.setId(iv.getId());
+                                    newIv.setImage(iv.getImage());
+
+                                    iv.setId(null);
+                                    iv.setImage(null);
+
+                                    board.setOldPosition(currentPosition);
+                                    board.setTokenPlacedPosition(newPosition);
+
+                                    afterTokenPlacementBoardUpdates(newPosition);
+
+                                    if (gameManager.isMill()) {
+                                        aiRemoveToken();
+                                    }
+
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void afterTokenPlacementBoardUpdates(Position position) {
         gameManager.changePlayerTurn();
         System.out.println(gameManager.colorOnTurn() + " turn");
         playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
@@ -575,7 +616,7 @@ public class RootLayoutController {
         }
     }
 
-    public void gameWinCheck(){
+    public void gameWinCheck() {
 
         if (gameManager.checkWin() > 0) {
             System.out.println("WIN");
