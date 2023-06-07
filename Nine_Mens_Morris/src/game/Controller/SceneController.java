@@ -3,6 +3,7 @@ package game.Controller;
 import java.io.IOException;
 
 import game.Main;
+import game.Utils.GameMode;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -108,6 +109,15 @@ public class SceneController {
 //        scene = new Scene(root);
 //        stage.setScene(scene);
 //        stage.show();
+        // Get the data from the button, whether player vs player or player vs AI
+
+        Node node = (Node) event.getSource() ;
+        String data = (String) node.getUserData();
+        int value = Integer.parseInt(data);
+        controller.setGameMode(value);  // 0 = player vs player, 1 = player vs AI
+
+
+
 
         controller = loader.getController();
         controller.setStage(stage);
