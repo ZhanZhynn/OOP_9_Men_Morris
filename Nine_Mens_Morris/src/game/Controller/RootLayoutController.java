@@ -450,38 +450,42 @@ public class RootLayoutController {
 
     //_____________________________________________________________
     //AI TEST CODE
+//
+//    private void aiBasicPlacement(int count) {
+//        for (ImageView iv : boardGridChildren) {
+//            Position position = getTilePosition(iv);
+//            if (iv.getId() == null) {
+//                iv.setImage(new Image("file:res/white_tile.png"));
+//                iv.setId("wht" + Integer.toString(count));
+//                board.setTokenPlacedPosition(position);
+//
+//                //remove token from rightpocketgrid after it is placed
+//                for (ImageView iv2 : rightPocketGridChildren) {
+//                    if (iv2.getId() != null) {
+//                        iv2.getImage();
+//                        if (iv2.getId().contains("wht")) {
+//                            iv2.setImage(null);
+//                            iv2.setId(null);
+//
+//                            break;
+//                        }
+//                    }
+//                }
+//                afterTokenPlacementBoardUpdates(position);
+//
+//                if (gameManager.isMill()) {
+//                    aiRemoveToken();
+//                }
+//
+//                return;
+//            }
+//        }
+//    }
 
-    private void aiBasicPlacement(int count) {
-        for (ImageView iv : boardGridChildren) {
-            Position position = getTilePosition(iv);
-            if (iv.getId() == null) {
-                iv.setImage(new Image("file:res/white_tile.png"));
-                iv.setId("wht" + Integer.toString(count));
-                board.setTokenPlacedPosition(position);
-
-                //remove token from rightpocketgrid after it is placed
-                for (ImageView iv2 : rightPocketGridChildren) {
-                    if (iv2.getId() != null) {
-                        iv2.getImage();
-                        if (iv2.getId().contains("wht")) {
-                            iv2.setImage(null);
-                            iv2.setId(null);
-
-                            break;
-                        }
-                    }
-                }
-                afterTokenPlacementBoardUpdates(position);
-
-                if (gameManager.isMill()) {
-                    aiRemoveToken();
-                }
-
-                return;
-            }
-        }
-    }
-
+    /**
+     * Handles AI token removal on board
+     *
+     */
     private void aiRemoveToken() {
         for (ImageView iv : boardGridChildren) {
             if (iv.getId() != null) {
@@ -499,45 +503,49 @@ public class RootLayoutController {
             }
         }
     }
+//
+//    private void aiMoveToken() {
+//        for (ImageView iv : boardGridChildren) {
+//            System.out.println(iv);
+//            if (iv.getId() != null) {
+//                if (iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
+//                    Position currentPosition = getTilePosition(iv);
+//                    List<Position> possiblePositions = board.getValidPositions(currentPosition);
+//                    for (Position p : possiblePositions) {
+//                        for (ImageView newIv : boardGridChildren) {
+//                            if (newIv.getId() == null) {
+//                                Position newPosition = getTilePosition(newIv);
+//                                if (newPosition.equals(p)) {
+//
+//                                    newIv.setId(iv.getId());
+//                                    newIv.setImage(iv.getImage());
+//
+//                                    iv.setId(null);
+//                                    iv.setImage(null);
+//
+//                                    board.setOldPosition(currentPosition);
+//                                    board.setTokenPlacedPosition(newPosition);
+//
+//                                    afterTokenPlacementBoardUpdates(newPosition);
+//
+//                                    if (gameManager.isMill()) {
+//                                        aiRemoveToken();
+//                                    }
+//
+//                                    return;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-    private void aiMoveToken() {
-        for (ImageView iv : boardGridChildren) {
-            System.out.println(iv);
-            if (iv.getId() != null) {
-                if (iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
-                    Position currentPosition = getTilePosition(iv);
-                    List<Position> possiblePositions = board.getValidPositions(currentPosition);
-                    for (Position p : possiblePositions) {
-                        for (ImageView newIv : boardGridChildren) {
-                            if (newIv.getId() == null) {
-                                Position newPosition = getTilePosition(newIv);
-                                if (newPosition.equals(p)) {
-
-                                    newIv.setId(iv.getId());
-                                    newIv.setImage(iv.getImage());
-
-                                    iv.setId(null);
-                                    iv.setImage(null);
-
-                                    board.setOldPosition(currentPosition);
-                                    board.setTokenPlacedPosition(newPosition);
-
-                                    afterTokenPlacementBoardUpdates(newPosition);
-
-                                    if (gameManager.isMill()) {
-                                        aiRemoveToken();
-                                    }
-
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
+    /**
+     * Handles AI token placement to board using random
+     * @param count used for id generation of the image view
+     */
     private void aiBasicPlacement2(int count) {
         Random random = new Random();
 
@@ -574,6 +582,10 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * Handles AI token movement on board using random
+     *
+     */
     private void aiMoveToken2() {
         Random random = new Random();
 
@@ -583,19 +595,23 @@ public class RootLayoutController {
             if (iv.getId() != null) {
                 if (iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
                     Position currentPosition = getTilePosition(iv);
+
+                    //possible movement from current position
                     List<Position> possiblePositions = board.getValidPositions(currentPosition);
                     for (Position p : possiblePositions) {
                         for (ImageView newIv : boardGridChildren) {
-                            if (newIv.getId() == null) {
+                            if (newIv.getId() == null) { //find positions that are empty
                                 Position newPosition = getTilePosition(newIv);
-                                if (newPosition.equals(p)) {
+                                if (newPosition.equals(p)) { //if possible position = empty
 
+                                    //transfer token
                                     newIv.setId(iv.getId());
                                     newIv.setImage(iv.getImage());
 
                                     iv.setId(null);
                                     iv.setImage(null);
 
+                                    //update backend
                                     board.setOldPosition(currentPosition);
                                     board.setTokenPlacedPosition(newPosition);
 
@@ -615,6 +631,10 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * Updates after token placement logic such as text, mill status etc
+     * @param position new position where the token is at
+     */
     public void afterTokenPlacementBoardUpdates(Position position) {
         gameManager.changePlayerTurn();
         System.out.println(gameManager.colorOnTurn() + " turn");
@@ -628,6 +648,10 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * Check game win condition and show prompt if game won
+     *
+     */
     public void gameWinCheck() {
 
         if (gameManager.checkWin() > 0) {
@@ -652,6 +676,10 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * Handles game mode pvp or cvp
+     * @param mode integer to set game mode
+     */
     public void setGameMode(int mode){
         if (mode == 0){
             this.rootGameMode = GameMode.HUMAN;
