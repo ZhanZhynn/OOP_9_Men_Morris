@@ -10,6 +10,7 @@ import game.Utils.GamePhase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -268,9 +270,9 @@ public class RootLayoutController {
         for (ImageView iv : boardGridChildren) {
             if (iv.getId() != null) {
                 if (gameManager.colorOnTurn() == Colour.BLACK && iv.getId().contains("blk")) {
-                    iv.setImage(new Image("file:res/black_tile.png"));
+                    iv.setImage(new Image("/black_tile.png"));
                 } else if (gameManager.colorOnTurn() == Colour.WHITE && iv.getId().contains("wht")) {
-                    iv.setImage(new Image("file:res/white_tile.png"));
+                    iv.setImage(new Image("/white_tile.png"));
                 }
             }
         }
@@ -290,9 +292,9 @@ public class RootLayoutController {
                                 System.out.println("removing token image");
 //                                iv.setImage(null);
                                 if (iv.getId().contains("blk") && this.rootGameMode == GameMode.HUMAN) {
-                                    iv.setImage(new Image("file:res/black_tile_removable.png"));
+                                    iv.setImage(new Image("/black_tile_removable.png"));
                                 } else if (iv.getId().contains("wht")) {
-                                    iv.setImage(new Image("file:res/white_tile_removable.png"));
+                                    iv.setImage(new Image("/white_tile_removable.png"));
                                 }
 
 //                                gameManager.setMill(false);
@@ -330,14 +332,24 @@ public class RootLayoutController {
         });
         gameManager.player2TurnProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue && this.rootGameMode == GameMode.COMPUTER) {   //play against AI mode
-                if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
-                    aiBasicPlacement2(count[0]);
-                    count[0]++;
-                    gameManager.setPlayer2TurnProperty(false);
-                } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT && !gameManager.isMill()) {
-                    aiMoveToken2();
-                    gameManager.setPlayer2TurnProperty(false);
-                }
+                Task<Void> aiTask = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        TimeUnit.MILLISECONDS.sleep(500 + new Random().nextInt(800));
+                        Platform.runLater(() -> {
+                            if (gameManager.getGamePhase() == GamePhase.PLACEMENT && !gameManager.isMill()) {
+                                aiBasicPlacement2(count[0]);
+                                count[0]++;
+                                gameManager.setPlayer2TurnProperty(false);
+                            } else if (gameManager.getGamePhase() == GamePhase.MOVEMENT && !gameManager.isMill()) {
+                                aiMoveToken2();
+                                gameManager.setPlayer2TurnProperty(false);
+                            }
+                        });
+                        return null;
+                    }
+                };
+                new Thread(aiTask).start();
             }
         });
     }
@@ -609,7 +621,7 @@ public class RootLayoutController {
 
             Position position = getTilePosition(iv);
             if (iv.getId() == null) {
-                iv.setImage(new Image("file:res/white_tile.png"));
+                iv.setImage(new Image("/white_tile.png"));
                 iv.setId("wht" + Integer.toString(count));
                 board.setTokenPlacedPosition(position);
 
