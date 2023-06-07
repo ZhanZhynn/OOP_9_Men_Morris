@@ -40,8 +40,11 @@ public class SceneController {
     public void switchToMainMenuScene(Stage stageFrom) throws IOException{
         root = FXMLLoader.load(Main.class.getResource("View/MainMenu.fxml"));
 //        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
         scene = new Scene(root);
         stageFrom.setScene(scene);
+        stage.setTitle("Nine Men Moris");
+        stageFrom.getIcons().add(new Image("file:res/icon.png"));
         stageFrom.show();
     }
 
@@ -56,6 +59,8 @@ public class SceneController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Nine Men Moris");
+        stage.getIcons().add(new Image("file:res/icon.png"));
         stage.show();
     }
 
@@ -69,6 +74,8 @@ public class SceneController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Nine Men Moris");
+        stage.getIcons().add(new Image("file:res/icon.png"));
         stage.show();
     }
 
@@ -82,6 +89,8 @@ public class SceneController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Nine Men Moris");
+        stage.getIcons().add(new Image("file:res/icon.png"));
         stage.show();
     }
 
