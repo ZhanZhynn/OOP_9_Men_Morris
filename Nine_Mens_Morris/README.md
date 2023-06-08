@@ -1,22 +1,19 @@
 # Nine Men' Morris
-<mark>**NEW!**</mark> Sprint 4 Demo: https://youtu.be/6x5lyS0EDVE <br>
+<mark>**NEW!**</mark> Sprint 4 Demo Youtube Link: https://youtu.be/6x5lyS0EDVE <br>
 
 ## Introduction
 Program is developed using Java and JavaFX.
 
 
 ## How to run the game
-1. Download the latest release from [here](https://git.infotech.monash.edu/fit3077-s1-2023/MA_Thursday4pm_Team6/project/-/tree/main/Sprint%203/Releases).
+1. Download the latest release from [here](https://git.infotech.monash.edu/fit3077-s1-2023/MA_Thursday4pm_Team6/project/-/tree/main/Sprint%204/Releases).
 
-2. here are 2 versions, a **ZIP file** (Backup) containing a Windows Batch File and a **JAR file** (Preferred):
-   - For Windows: (recommended if you are using Windows)
-     - unzip 'app.zip', 
-     - go to bin folder, and locate app.bat (Windows Batch File)
-     - Execute the file
+2. Here are 1 versions, a **JAR file** (Preferred):
    - For Mac or Windows:
      - you will need Java 17 or above installed. 
-     - Run the .jar file by double clicking on it or run it from the terminal in the folder using the command `java -jar 9mm.jar`
+     - Run the .jar file by double clicking on it or run it from the terminal in the folder using the command `java -jar 9mm-v4.jar`
 
+Please note that the Windows Batch File is no longer maintained for Sprint 4, this includes the Nine_Men_Morris_Maven folder.
 
 ## How to compile and run the build on intelliJ
 **To build our 9MM game, please follow the steps below:**
@@ -30,6 +27,12 @@ If the game runs successfully, you will see the game interface.
 ## Rules implemented so far
 1. All basic rules have been implemented.
 2. Advanced requirement has been fully implemented.
+
+#### Advanced requirement chosen:
+
+"A single player may play against the computer, where the computer will randomly play a
+move among all of the currently valid moves for the computer, or any other set of
+heuristics of your choice."
 
 ## IDE
 IntelliJ IDEA
@@ -64,7 +67,7 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 ![](res/generate-jar-maven.mp4)
 
 
-## Generate BAT file
+## Generate BAT file (Only applicable for Sprint 3)
 
 **Instructions**
 
