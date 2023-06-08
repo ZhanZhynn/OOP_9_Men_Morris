@@ -291,7 +291,7 @@ public class RootLayoutController {
      * Loops every tile on the board, if the tile is not empty and the tile contains the opponent's token that can be removed,
      * replace the image to indicate it is removable.
      */
-    public void putImagesOnRemovableTiles(){
+    private void putImagesOnRemovableTiles(){
         for (ImageView iv : boardGridChildren) {
                 if (gameManager.isMill()) {
                     System.out.println("putImagesOnRemovableTiles");
