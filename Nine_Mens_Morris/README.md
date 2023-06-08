@@ -1,6 +1,5 @@
 # Nine Men' Morris
 <mark>**NEW!**</mark> Sprint 4 Demo: https://youtu.be/6x5lyS0EDVE <br>
-Sprint 3 Demo: https://youtu.be/z88bg2aQVc4
 
 ## Introduction
 Program is developed using Java and JavaFX.
@@ -78,6 +77,10 @@ This configuration can be found in the VM options of the Run/Debug Configuration
 ## Screenshots
 <img src="res/9mm_cover.png" alt="9MM Main menu Screenshot"/>
 <img src="res/ingame_screenshot.png" alt="9MM in game Screenshot"/>
+
+## History
+
+Sprint 3 Demo: https://youtu.be/z88bg2aQVc4
 
 
 
