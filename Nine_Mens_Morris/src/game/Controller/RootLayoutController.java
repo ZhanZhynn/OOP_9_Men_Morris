@@ -388,7 +388,8 @@ public class RootLayoutController {
         initGameManagerPropertyListeners();
 
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
-        initTokenDrag(rightPocketGrid);
+
+//        initTokenDrag(rightPocketGrid);
         initTokenDrag(gameBoardGrid);
         initTokenDrop(gameBoardGrid);
         removeTileMill();
@@ -753,12 +754,13 @@ public class RootLayoutController {
     }
 
     /**
-     * Handles game mode pvp or cvp
+     * Handles game mode HUMAN or COMPUTER
      * @param mode integer to set game mode
      */
     public void setGameMode(int mode){
         if (mode == 0){
             this.rootGameMode = GameMode.HUMAN;
+            initTokenDrag(rightPocketGrid); //init drag and drop for player 2 if it is not AI
         } else{
             this.rootGameMode = GameMode.COMPUTER;
         }
