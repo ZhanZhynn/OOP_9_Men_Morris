@@ -29,6 +29,7 @@ If the game runs successfully, you will see the game interface.
 
 ## Rules implemented so far
 1. All basic rules have been implemented.
+2. Advanced requirement has been fully implemented.
 
 ## IDE
 IntelliJ IDEA
