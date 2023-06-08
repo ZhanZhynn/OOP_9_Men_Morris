@@ -6,7 +6,7 @@ Sprint 4 Demo: https://youtu.be/6x5lyS0EDVE
 2. There is 1 version, a **JAR file** (Preferred):
    - For Mac or Windows:
      - you will need Java 17 or above installed. 
-     - Run the .jar file by double clicking on it or run it from the terminal in the folder using the command `java -jar 9mm.jar`
+     - Run the .jar file by double clicking on it or run it from the terminal in the folder using the command `java -jar 9mm-v4.jar`
 
 ## Rules implemented so far
 1. All basic rules have been implemented.
