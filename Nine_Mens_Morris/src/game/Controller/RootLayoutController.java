@@ -301,7 +301,7 @@ public class RootLayoutController {
                                 iv.getId().contains("wht") && gameManager.colorOnTurn() == Colour.WHITE) {
                             Position position = getTilePosition(iv);
 
-                            if (position != null && board.canBeRemoved1(position)) {//if token can be removed
+                            if (position != null && board.canBeRemoved(position, false)) {//if token can be removed
                                 System.out.println("removing token image");
 //                                iv.setImage(null);
                                 if (iv.getId().contains("blk") && this.rootGameMode == GameMode.HUMAN) {
