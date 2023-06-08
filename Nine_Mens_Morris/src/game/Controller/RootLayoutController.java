@@ -340,7 +340,7 @@ public class RootLayoutController {
         });
         gameManager.player2TurnProperty().addListener((observableValue, oldValue, newValue) -> {
             if (newValue && this.rootGameMode == GameMode.COMPUTER) {   //play against AI mode
-                Task<Void> aiTask = new Task<Void>() {
+                Task<Void> aiTask = new Task<Void>() {  //introduce a delay to make the AI move more realistic
                     @Override
                     protected Void call() throws Exception {
                         TimeUnit.MILLISECONDS.sleep(500 + new Random().nextInt(800));
