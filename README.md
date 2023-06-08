@@ -54,7 +54,11 @@ where you saved your JavaFX SDK.
 
 This configuration can be found in the VM options of the Run/Debug Configurations.
 <img src="Nine_Mens_Morris/res/troubleshoot1.png" alt="Troubleshoot1"/>
+
 </details>
+
+<details>
+    <summary>Sprint 3</summary>
 
 ## Sprint 3
 
@@ -70,4 +74,20 @@ Inside the Sprint 3 folder we have:
 5. Sprint 3 Youtube Demo: https://youtu.be/z88bg2aQVc4
 
 Please refer to the readme in the Sprint 3 folder for more details on how to run our game.
+
+</details>
+
+## Sprint 4
+
+Sprint 4 documentation deliverables can be found in the Sprint 4 folder, while source code for our 9MM game is stored in the Nine_Mens_Morris folder.
+
+Inside the Sprint 4 folder we have:
+
+**Submission Files (to be marked)**
+1. 9mm_UML_Sprint4.pdf - our complete uml class diagram, updated and finalised for Sprint 4
+2. FIT3077_Sprint_4_Design_Rationale.pdf - our design rationale for Sprint 4
+3. Releases folder - containing .bat file for Windows and .jar for MacOs
+4. Sprint 4 Youtube Demo: https://youtu.be/z88bg2aQVc4
+
+Please refer to the readme in the Sprint 4 folder for more details on how to run our game.
 
