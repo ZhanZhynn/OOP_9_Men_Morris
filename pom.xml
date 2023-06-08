@@ -75,7 +75,7 @@
         <resources>
             <resource>
                 <directory>Nine_Mens_Morris/src/game/View</directory>
-                <targetPath>game/view</targetPath>
+                <targetPath>game/View</targetPath>
             </resource>
             <resource>
                 <directory>Nine_Mens_Morris/res</directory>
