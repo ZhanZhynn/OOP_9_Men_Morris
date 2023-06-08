@@ -86,7 +86,7 @@ Inside the Sprint 4 folder we have:
 **Submission Files (to be marked)**
 1. 9mm_UML_Sprint4.pdf - our complete uml class diagram, updated and finalised for Sprint 4
 2. FIT3077_Sprint_4_Design_Rationale.pdf - our design rationale for Sprint 4
-3. Releases folder - containing .bat file for Windows and .jar for MacOs
+3. Releases folder - containing .jar file for Windows and MacOS
 4. Sprint 4 Youtube Demo: https://youtu.be/6x5lyS0EDVE
 
 Please refer to the readme in the Sprint 4 folder for more details on how to run our game.
