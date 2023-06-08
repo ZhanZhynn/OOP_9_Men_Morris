@@ -74,7 +74,7 @@ public class Main extends Application {
         try {
 
             //play music
-            Media sound = new Media(getClass().getResource("/lofi2.mp3").toExternalForm());
+            Media sound = new Media(getClass().getResource("musicRes/lofi2.mp3").toExternalForm());
             mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.setOnEndOfMedia(new Runnable() {    //loop music
                 public void run() {
@@ -96,7 +96,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Nine Men Moris");
-            primaryStage.getIcons().add(new Image("/icon.png"));
+            primaryStage.getIcons().add(new Image("file:res/icon.png"));
             primaryStage.show();
 
 
