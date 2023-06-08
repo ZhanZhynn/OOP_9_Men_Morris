@@ -266,6 +266,13 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * After token removal, reset the images on the opponent's token that can be removed.
+     *
+     * Loops every tile on the board, if the tile is not empty and the tile contains the opponent's token that can be removed,
+     * reset back the image to the original image.
+     *
+     */
     private void resetImagesOnRemovableTiles() {
         for (ImageView iv : boardGridChildren) {
             if (iv.getId() != null) {
@@ -278,6 +285,12 @@ public class RootLayoutController {
         }
     }
 
+    /**
+     * If the current player forms a mill, the opponent's token that can be removed will be highlighted.
+     *
+     * Loops every tile on the board, if the tile is not empty and the tile contains the opponent's token that can be removed,
+     * replace the image to indicate it is removable.
+     */
     public void putImagesOnRemovableTiles(){
         for (ImageView iv : boardGridChildren) {
                 if (gameManager.isMill()) {
@@ -297,13 +310,8 @@ public class RootLayoutController {
                                     iv.setImage(new Image("/white_tile_removable.png"));
                                 }
 
-//                                gameManager.setMill(false);
-//                                playerTurnLabel.setText(gameManager.colorOnTurn() + "'s turn");
-
                             } else {
                                 System.out.println("TOKEN CANNOT BE REMOVED");
-                                //update label
-//                                playerTurnLabel.setText("Part of mill, cannot remove token");
                             }
 
                         }
@@ -380,9 +388,6 @@ public class RootLayoutController {
         initGameManagerPropertyListeners();
 
         initTokenDrag(leftPocketGrid); //id of grid pane in fxml file
-//        if (this.rootGameMode == GameMode.HUMAN) {
-//            initTokenDrag(rightPocketGrid);
-//        }
         initTokenDrag(rightPocketGrid);
         initTokenDrag(gameBoardGrid);
         initTokenDrop(gameBoardGrid);

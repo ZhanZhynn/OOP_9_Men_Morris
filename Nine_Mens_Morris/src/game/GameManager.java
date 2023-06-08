@@ -2,7 +2,6 @@ package game;
 
 import game.Player.HumanPlayer;
 import game.Utils.Colour;
-import game.Utils.GameMode;
 import game.Utils.GamePhase;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,8 +20,6 @@ public class GameManager {
 
     private final int MAXTOKEN = 18;
     private GamePhase gamePhase;
-
-    private GameMode gameMode;
 
     private HumanPlayer player1;
     private HumanPlayer player2;
